@@ -5,12 +5,11 @@ import { createAsyncThunk, createAction } from '@reduxjs/toolkit';
 
 import { apiAxios } from '../../servises/api';
 
-
 export const getDiet = createAsyncThunk(
   'blood',
   async (credentials, thunkAPI) => {
     try {
-      const { data } = await apiAxios.post('bloodproducts', credentials);
+      const { data } = await apiAxios.post('products', credentials);
       return data;
     } catch (error) {
       if (!error.response) {

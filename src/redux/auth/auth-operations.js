@@ -4,25 +4,14 @@ import { creatNotifyError } from 'helpers/createNotify';
 
 const token = apiToken;
 const API = apiAxios;
-// axios.defaults.baseURL = 'http://localhost:5001';
 
-// const token = {
-//   set(token) {
-//     axios.defaults.headers.common.Authorization = `Bearer ${token}`;
-//   },
-
-//   unset() {
-//     axios.defaults.headers.common.Authorization = '';
-//   },
-// };
-
-// нащо в реєстрації вертать щось, якщо ми це не використовуємо
 export const register = createAsyncThunk(
   'auth/register',
   async (credentials, thunkAPI) => {
     try {
       const { data } = await API.post('auth/register', credentials);
-      console.log(data.token);
+      token.set(data.token);
+      console.log(data);
       return data;
     } catch (error) {
       creatNotifyError(error.message);
@@ -46,10 +35,23 @@ export const logIn = createAsyncThunk(
   async (credentials, thunkAPI) => {
     try {
       const { data } = await API.post('auth/login', credentials);
-      token.set(data.data.token);
+      token.set(data.token);
+      console.log(data);
       return data;
     } catch (error) {
       creatNotifyError(error.message);
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
+export const updateUser = createAsyncThunk(
+  'user/updateUser',
+  async (credentials, thunkAPI) => {
+    try {
+      const { data } = await apiAxios.patch(`users/update`, credentials);
+      return data;
+    } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }
   }
@@ -67,6 +69,7 @@ export const fetchCurrentUser = createAsyncThunk(
     token.set(persistedToken);
     try {
       const { data } = await API.get('users/current');
+      console.log(data);
       return data;
     } catch (err) {
       creatNotifyError(err.message);

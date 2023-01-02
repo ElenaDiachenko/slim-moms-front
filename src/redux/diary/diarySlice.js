@@ -6,6 +6,7 @@ import {
   isRejected,
 } from '@reduxjs/toolkit';
 import { getByDate, addProduct, removeProduct } from './diaryOperations';
+import { anyCases } from '../utils';
 
 const initialState = {
   selectedDate: '',
@@ -19,20 +20,6 @@ const actions = [getByDate, addProduct, removeProduct];
 const pendingActions = isPending(...actions);
 const fulfilledActions = isFulfilled(...actions);
 const rejectedActions = isRejected(...actions);
-
-const handleAnyFulfield = (state, { payload }) => {
-  state.isLoading = false;
-  state.error = null;
-};
-
-const handleAnyPending = state => {
-  state.isLoading = true;
-};
-
-const handleAnyRejected = (state, action) => {
-  state.isLoading = false;
-  state.error = action.payload;
-};
 
 const diarySlice = createSlice({
   name: 'diary',
@@ -66,9 +53,9 @@ const diarySlice = createSlice({
         const [removedProduct] = state.products.splice(idx, 1);
         state.caloricityPerDay -= removedProduct.calories;
       })
-      .addMatcher(isAnyOf(fulfilledActions), handleAnyFulfield)
-      .addMatcher(isAnyOf(pendingActions), handleAnyPending)
-      .addMatcher(isAnyOf(rejectedActions), handleAnyRejected),
+      .addMatcher(isAnyOf(fulfilledActions), anyCases.handleAnyFulfield)
+      .addMatcher(isAnyOf(pendingActions), anyCases.handleAnyPending)
+      .addMatcher(isAnyOf(rejectedActions), anyCases.handleAnyRejected),
 });
 export const { setDate } = diarySlice.actions;
 export const diaryReducer = diarySlice.reducer;
