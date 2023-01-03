@@ -26,21 +26,26 @@ import calculatorSchema from '../../utils/schemas/CalculatorSchema';
 import { userSelector } from 'redux/auth/auth-selectors';
 import { setUserData } from 'redux/auth/auth-slice';
 import { getDiet } from 'redux/products/products-operations';
+import { updateUser } from 'redux/auth/auth-operations';
 import { useModal } from 'hooks/useModal';
 import DailyCalorieIntake from '../DailyCalorieIntake';
 
 export const DailyCaloriesForm = () => {
   const { isModalOpen, closeModal, openModal } = useModal();
-
+  const savedFormData = useSelector(userSelector.selectUser);
   const [apiSuccess, setApiSuccess] = useState(false);
-  const [height, setHeight] = useState('');
-  const [age, setAge] = useState('');
-  const [currentWeight, setCurrentWeight] = useState('');
-  const [desiredWeight, setDesiredWeight] = useState('');
-  const [bloodType, setBloodType] = useState('1');
+  const [height, setHeight] = useState(savedFormData.height ?? '');
+  const [age, setAge] = useState(savedFormData.age ?? '');
+  const [currentWeight, setCurrentWeight] = useState(
+    savedFormData.curWeight ?? ''
+  );
+  const [desiredWeight, setDesiredWeight] = useState(
+    savedFormData.desWeight ?? ''
+  );
+  const [bloodType, setBloodType] = useState(savedFormData.bloodType ?? '1');
 
   const dispatch = useDispatch();
-  // const savedFormData = useSelector(bloodSelectors.selectUserDate);
+
   const isLoggedIn = useSelector(selectIsLoggedIn);
   const mds = window.matchMedia('(min-width: 768px)');
 
@@ -76,7 +81,6 @@ export const DailyCaloriesForm = () => {
 
   const handleRadioChange = event => {
     setBloodType(event.target.value);
-    localStorage.setItem('bloodType', JSON.stringify(event.target.value));
   };
 
   const reset = () => {
@@ -111,6 +115,16 @@ export const DailyCaloriesForm = () => {
       );
       handleOpenModal();
       reset();
+    } else {
+      await dispatch(
+        updateUser({
+          height: Number(height),
+          age: Number(age),
+          curWeight: Number(currentWeight),
+          desWeight: Number(desiredWeight),
+          bloodType: Number(bloodType),
+        })
+      );
     }
     //   if (isLoggedIn) {
     //     try {

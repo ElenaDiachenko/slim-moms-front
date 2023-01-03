@@ -18,6 +18,7 @@ import { fetchCurrentUser } from 'redux/auth/auth-operations';
 import Loader from 'components/Loader/Loader';
 //Add lazy
 import { bloodSelectors } from 'redux/bloodDiet/bloodDietSelectors';
+import { userSelector } from 'redux/auth/auth-selectors';
 
 const RegistrationPage = lazy(() => import('./pages/RegistrationPage/index'));
 const Login = lazy(() => import('./pages/Login/index'));
@@ -32,6 +33,7 @@ const AddProduct = lazy(() => import('./pages/AddProduct/index'));
 export const App = () => {
   const dispatch = useDispatch();
   const { isRefreshing } = useAuth();
+  const userSavedData = useSelector(userSelector.selectUserSavedData);
 
   useEffect(() => {
     dispatch(fetchCurrentUser());
@@ -119,7 +121,10 @@ export const App = () => {
             <Route
               path="/registration"
               element={
-                <PublicRoute redirectTo="/diary" restricted>
+                <PublicRoute
+                  redirectTo={userSavedData ? '/diary' : '/calculator'}
+                  restricted
+                >
                   <RegistrationPage />
                 </PublicRoute>
               }

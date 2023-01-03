@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Formik, ErrorMessage } from 'formik';
 import { register } from 'redux/auth/auth-operations';
@@ -57,6 +58,7 @@ export const RegistrationForm = () => {
   const userSavedData = useSelector(userSelector.selectUserSavedData);
   const handleClick = () => setShow(!showPassword);
   const dispatch = useDispatch();
+
   const handleSubmit = async ({ name, email, password }, { resetForm }) => {
     await dispatch(register({ name, email, password }));
     userSavedData && (await dispatch(updateUser(userSavedData)));
@@ -101,9 +103,9 @@ export const RegistrationForm = () => {
               </FormItem>
             </FormList>
             <ButtonsContainer>
-              <ButtonAuth text="Register"></ButtonAuth>
+              <ButtonAuth text="Register" />
               <Link to="/login">
-                <ButtonLinkAuth text="Log in"></ButtonLinkAuth>
+                <ButtonLinkAuth text="Log in" />
               </Link>
             </ButtonsContainer>
           </FormReg>

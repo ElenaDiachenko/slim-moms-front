@@ -27,7 +27,6 @@ const Diary = () => {
   const { width } = useWindowResize();
   useEffect(() => {
     if (date) {
-      dispatch(getUser());
       dispatch(getByDate(date));
     }
   }, [date, dispatch]);

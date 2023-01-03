@@ -63,7 +63,6 @@ export const UserInfo = () => {
 
   const isLogout = () => {
     dispatch(logOut());
-    console.log('user is logged out');
   };
 
   return (
