@@ -16,46 +16,38 @@ import sprite from 'images/icons.svg';
 
 const modalRoot = document.querySelector('#modal-root');
 
-export default function Modal() {
-  const dispatch = useDispatch();
+export default function Modal({ onClose, children }) {
+  // const dispatch = useDispatch();
   // const error = useSelector(bloodSelectors.selectBloodError);
 
   useEffect(() => {
-    const handleKeyDown = e => {
-      if (e.code === 'Escape') {
-        // dispatch(toggleModal(false));
-        // dispatch(clearState());
-      }
-    };
-
-    window.addEventListener('keydown', handleKeyDown);
-
+    const hanleEscapeClose = e => (e.key === 'Escape' ? onClose() : null);
+    document.body.addEventListener('keydown', hanleEscapeClose);
     return () => {
-      window.removeEventListener('keydown', handleKeyDown);
+      document.body.removeEventListener('keydown', hanleEscapeClose);
     };
-  });
+  }, [onClose]);
 
-  const onBackdropClick = e => {
+  const handleBackdropClick = e => {
     if (e.currentTarget === e.target) {
-      // dispatch(toggleModal(false));
-      // dispatch(clearState());
+      onClose();
     }
   };
-
   // const onBtnClick = () => {
   //   dispatch(toggleModal(false));
   //   dispatch(clearState());
   // };
 
   return createPortal(
-    <Backdrop onClick={onBackdropClick}>
+    <Backdrop onClick={handleBackdropClick}>
       <ModalWindow>
+        {children}
         {/* {!error ? <DailyCalorieIntake /> : <NotFound>404 NotFound</NotFound>} */}
-        {/* <ModalButton onClick={() => onBtnClick()}>
+        <ModalButton onClick={onClose}>
           <ModalButtonIcon>
             <use href={sprite + '#icon-exit-icon'} />
           </ModalButtonIcon>
-        </ModalButton> */}
+        </ModalButton>
       </ModalWindow>
     </Backdrop>,
     modalRoot

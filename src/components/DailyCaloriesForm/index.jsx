@@ -14,6 +14,7 @@ import {
 
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
+import Modal from 'components/Modal';
 // import { changeUserDate } from '../../redux/bloodDiet/operations';
 // import { toggleModal } from '../../redux/bloodDiet/operations';
 // import { getDiet, getDietUser, toggleModal, changeUserDate } from '../../redux/bloodDiet/operations';
@@ -25,8 +26,12 @@ import calculatorSchema from '../../utils/schemas/CalculatorSchema';
 import { userSelector } from 'redux/auth/auth-selectors';
 import { setUserData } from 'redux/auth/auth-slice';
 import { getDiet } from 'redux/products/products-operations';
+import { useModal } from 'hooks/useModal';
+import DailyCalorieIntake from '../DailyCalorieIntake';
 
 export const DailyCaloriesForm = () => {
+  const { isModalOpen, closeModal, openModal } = useModal();
+
   const [apiSuccess, setApiSuccess] = useState(false);
   const [height, setHeight] = useState('');
   const [age, setAge] = useState('');
@@ -81,6 +86,7 @@ export const DailyCaloriesForm = () => {
     setDesiredWeight('');
     setBloodType('1');
   };
+  const handleOpenModal = () => openModal();
 
   const handleSubmit = async event => {
     event.preventDefault();
@@ -94,7 +100,7 @@ export const DailyCaloriesForm = () => {
           bloodType: Number(bloodType),
         })
       );
-      dispatch(
+      await dispatch(
         setUserData({
           height: height,
           age: age,
@@ -103,6 +109,8 @@ export const DailyCaloriesForm = () => {
           bloodType: bloodType,
         })
       );
+      handleOpenModal();
+      reset();
     }
     //   if (isLoggedIn) {
     //     try {
@@ -159,115 +167,122 @@ export const DailyCaloriesForm = () => {
   if (apiSuccess) return <Navigate to="/modal" />;
 
   return (
-    <Wrap>
-      <Title>Calculate your daily calorie intake right now</Title>
-      <Form validationSchema={calculatorSchema} onSubmit={handleSubmit}>
-        <WrapBox>
-          <Label htmlFor="height">
-            Height *
-            <Input
-              pattern="[0-9]"
-              required
-              id="height"
-              type="number"
-              name="height"
-              value={height}
-              onChange={handleInputChange}
-            />
-          </Label>
-          <Label htmlFor="age">
-            Age *
-            <Input
-              pattern="[0-9]"
-              id="age"
-              required
-              type="number"
-              name="age"
-              value={age}
-              onChange={handleInputChange}
-            />
-          </Label>
-          <Label htmlFor="currentWeight">
-            Current weight *
-            <Input
-              pattern="[0-9]"
-              required
-              id="currentWeight"
-              type="number"
-              name="currentWeight"
-              value={currentWeight}
-              onChange={handleInputChange}
-            />
-          </Label>
-        </WrapBox>
-        <WrapBox>
-          <Label htmlFor="desiredWeight">
-            Desired weight *
-            <Input
-              pattern="[0-9]"
-              id="desiredWeight"
-              required
-              name="desiredWeight"
-              type="number"
-              value={desiredWeight}
-              onChange={handleInputChange}
-            />
-          </Label>
-          <Label htmlFor="bloodType" required>
-            <p style={{ marginBottom: '8px' }}>Blood type *</p>
-            <BloodList>
-              <BloodListItem>
-                <RadioButton
-                  type="radio"
-                  // checked
-                  name="bloodType"
-                  id="blood-inp-1"
-                  value={1}
-                  checked={bloodType === '1' ? true : false}
-                  onChange={handleRadioChange}
-                />
-                <label htmlFor="blood-inp-1">1</label>
-              </BloodListItem>
-              <BloodListItem>
-                <RadioButton
-                  type="radio"
-                  name="bloodType"
-                  id="blood-inp-2"
-                  value={2}
-                  checked={bloodType === '2' ? true : false}
-                  onChange={handleRadioChange}
-                />
-                <label htmlFor="blood-inp-2">2</label>
-              </BloodListItem>
-              <BloodListItem>
-                <RadioButton
-                  type="radio"
-                  name="bloodType"
-                  id="blood-inp-3"
-                  value={3}
-                  checked={bloodType === '3' ? true : false}
-                  onChange={handleRadioChange}
-                />
-                <label htmlFor="blood-inp-3">3</label>
-              </BloodListItem>
-              <BloodListItem>
-                <RadioButton
-                  type="radio"
-                  name="bloodType"
-                  id="blood-inp-4"
-                  value={4}
-                  checked={bloodType === '4' ? true : false}
-                  onChange={handleRadioChange}
-                />
-                <label htmlFor="blood-inp-4">4</label>
-              </BloodListItem>
-            </BloodList>
-          </Label>
-        </WrapBox>
-        <ButtonContainer>
-          <Button type="submit" text="Start losing weight" />
-        </ButtonContainer>
-      </Form>
-    </Wrap>
+    <>
+      <Wrap>
+        <Title>Calculate your daily calorie intake right now</Title>
+        <Form validationSchema={calculatorSchema} onSubmit={handleSubmit}>
+          <WrapBox>
+            <Label htmlFor="height">
+              Height *
+              <Input
+                pattern="[0-9]"
+                required
+                id="height"
+                type="number"
+                name="height"
+                value={height}
+                onChange={handleInputChange}
+              />
+            </Label>
+            <Label htmlFor="age">
+              Age *
+              <Input
+                pattern="[0-9]"
+                id="age"
+                required
+                type="number"
+                name="age"
+                value={age}
+                onChange={handleInputChange}
+              />
+            </Label>
+            <Label htmlFor="currentWeight">
+              Current weight *
+              <Input
+                pattern="[0-9]"
+                required
+                id="currentWeight"
+                type="number"
+                name="currentWeight"
+                value={currentWeight}
+                onChange={handleInputChange}
+              />
+            </Label>
+          </WrapBox>
+          <WrapBox>
+            <Label htmlFor="desiredWeight">
+              Desired weight *
+              <Input
+                pattern="[0-9]"
+                id="desiredWeight"
+                required
+                name="desiredWeight"
+                type="number"
+                value={desiredWeight}
+                onChange={handleInputChange}
+              />
+            </Label>
+            <Label htmlFor="bloodType" required>
+              <p style={{ marginBottom: '8px' }}>Blood type *</p>
+              <BloodList>
+                <BloodListItem>
+                  <RadioButton
+                    type="radio"
+                    // checked
+                    name="bloodType"
+                    id="blood-inp-1"
+                    value={1}
+                    checked={bloodType === '1' ? true : false}
+                    onChange={handleRadioChange}
+                  />
+                  <label htmlFor="blood-inp-1">1</label>
+                </BloodListItem>
+                <BloodListItem>
+                  <RadioButton
+                    type="radio"
+                    name="bloodType"
+                    id="blood-inp-2"
+                    value={2}
+                    checked={bloodType === '2' ? true : false}
+                    onChange={handleRadioChange}
+                  />
+                  <label htmlFor="blood-inp-2">2</label>
+                </BloodListItem>
+                <BloodListItem>
+                  <RadioButton
+                    type="radio"
+                    name="bloodType"
+                    id="blood-inp-3"
+                    value={3}
+                    checked={bloodType === '3' ? true : false}
+                    onChange={handleRadioChange}
+                  />
+                  <label htmlFor="blood-inp-3">3</label>
+                </BloodListItem>
+                <BloodListItem>
+                  <RadioButton
+                    type="radio"
+                    name="bloodType"
+                    id="blood-inp-4"
+                    value={4}
+                    checked={bloodType === '4' ? true : false}
+                    onChange={handleRadioChange}
+                  />
+                  <label htmlFor="blood-inp-4">4</label>
+                </BloodListItem>
+              </BloodList>
+            </Label>
+          </WrapBox>
+          <ButtonContainer>
+            <Button type="submit" text="Start losing weight" />
+          </ButtonContainer>
+        </Form>
+      </Wrap>
+      {isModalOpen && (
+        <Modal onClose={closeModal}>
+          <DailyCalorieIntake onClose={closeModal} />
+        </Modal>
+      )}
+    </>
   );
 };
