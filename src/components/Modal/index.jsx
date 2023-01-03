@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { toggleModal } from '../../redux/bloodDiet/operations';
-import { bloodSelectors } from 'redux/bloodDiet/bloodDietSelectors';
+// import { toggleModal } from '../../redux/bloodDiet/operations';
+// import { bloodSelectors } from 'redux/bloodDiet/bloodDietSelectors';
 import DailyCalorieIntake from '../DailyCalorieIntake';
 import {
   Backdrop,
@@ -11,20 +11,20 @@ import {
   ModalButtonIcon,
   NotFound,
 } from './Modal.styled';
-import { clearState } from '../../redux/bloodDiet/operations';
+// import { clearState } from '../../redux/bloodDiet/operations';
 import sprite from 'images/icons.svg';
 
 const modalRoot = document.querySelector('#modal-root');
 
 export default function Modal() {
   const dispatch = useDispatch();
-  const error = useSelector(bloodSelectors.selectBloodError);
+  // const error = useSelector(bloodSelectors.selectBloodError);
 
   useEffect(() => {
     const handleKeyDown = e => {
       if (e.code === 'Escape') {
-        dispatch(toggleModal(false));
-        dispatch(clearState());
+        // dispatch(toggleModal(false));
+        // dispatch(clearState());
       }
     };
 
@@ -37,25 +37,25 @@ export default function Modal() {
 
   const onBackdropClick = e => {
     if (e.currentTarget === e.target) {
-      dispatch(toggleModal(false));
-      dispatch(clearState());
+      // dispatch(toggleModal(false));
+      // dispatch(clearState());
     }
   };
 
-  const onBtnClick = () => {
-    dispatch(toggleModal(false));
-    dispatch(clearState());
-  };
+  // const onBtnClick = () => {
+  //   dispatch(toggleModal(false));
+  //   dispatch(clearState());
+  // };
 
   return createPortal(
     <Backdrop onClick={onBackdropClick}>
       <ModalWindow>
-        {!error ? <DailyCalorieIntake /> : <NotFound>404 NotFound</NotFound>}
-        <ModalButton onClick={() => onBtnClick()}>
+        {/* {!error ? <DailyCalorieIntake /> : <NotFound>404 NotFound</NotFound>} */}
+        {/* <ModalButton onClick={() => onBtnClick()}>
           <ModalButtonIcon>
             <use href={sprite + '#icon-exit-icon'} />
           </ModalButtonIcon>
-        </ModalButton>
+        </ModalButton> */}
       </ModalWindow>
     </Backdrop>,
     modalRoot

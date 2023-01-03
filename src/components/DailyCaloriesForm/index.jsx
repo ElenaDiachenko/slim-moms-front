@@ -16,12 +16,15 @@ import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 // import { changeUserDate } from '../../redux/bloodDiet/operations';
 // import { toggleModal } from '../../redux/bloodDiet/operations';
-import { getDiet, getDietUser, toggleModal, changeUserDate } from '../../redux/bloodDiet/operations';
+// import { getDiet, getDietUser, toggleModal, changeUserDate } from '../../redux/bloodDiet/operations';
 import { useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
-import { bloodSelectors } from 'redux/bloodDiet/bloodDietSelectors'; 
+// import { bloodSelectors } from 'redux/bloodDiet/bloodDietSelectors';
 import { selectIsLoggedIn } from 'redux/auth/auth-selectors';
 import calculatorSchema from '../../utils/schemas/CalculatorSchema';
+import { userSelector } from 'redux/auth/auth-selectors';
+import { setUserData } from 'redux/auth/auth-slice';
+import { getDiet } from 'redux/products/products-operations';
 
 export const DailyCaloriesForm = () => {
   const [apiSuccess, setApiSuccess] = useState(false);
@@ -32,19 +35,19 @@ export const DailyCaloriesForm = () => {
   const [bloodType, setBloodType] = useState('1');
 
   const dispatch = useDispatch();
-  const savedFormData = useSelector(bloodSelectors.selectUserDate);
+  // const savedFormData = useSelector(bloodSelectors.selectUserDate);
   const isLoggedIn = useSelector(selectIsLoggedIn);
   const mds = window.matchMedia('(min-width: 768px)');
 
-  useEffect(() => {
-    if (isLoggedIn) {
-      setHeight(savedFormData.height);
-      setAge(savedFormData.age);
-      setCurrentWeight(savedFormData.curWeight);
-      setDesiredWeight(savedFormData.desWeight);
-      setBloodType(savedFormData.bloodType);
-    }
-  }, [isLoggedIn, savedFormData]);
+  // useEffect(() => {
+  //   if (isLoggedIn) {
+  //     setHeight(savedFormData.height);
+  //     setAge(savedFormData.age);
+  //     setCurrentWeight(savedFormData.curWeight);
+  //     setDesiredWeight(savedFormData.desWeight);
+  //     setBloodType(savedFormData.bloodType);
+  //   }
+  // }, [isLoggedIn, savedFormData]);
 
   const handleInputChange = event => {
     const { name, value } = event.currentTarget;
@@ -81,57 +84,76 @@ export const DailyCaloriesForm = () => {
 
   const handleSubmit = async event => {
     event.preventDefault();
-
-    if (isLoggedIn) {
-      try {
-        await dispatch(
-          getDietUser({
-            height: Number(height),
-            age: Number(age),
-            curWeight: Number(currentWeight),
-            desWeight: Number(desiredWeight),
-            bloodType: Number(bloodType),
-          })
-        );
-        if (mds.matches) {
-          dispatch(toggleModal(true));
-        } else {
-          setApiSuccess(true);
-        }
-      } catch {
-        throw new Error();
-      }
-    } else {
-      try {
-        await dispatch(
-          getDiet({
-            height: Number(height),
-            age: Number(age),
-            curWeight: Number(currentWeight),
-            desWeight: Number(desiredWeight),
-            bloodType: Number(bloodType),
-          })
-        );
-        dispatch(
-          changeUserDate({
-            height: height,
-            age: age,
-            curWeight: currentWeight,
-            desWeight: desiredWeight,
-            bloodType: bloodType,
-          })
-        );
-
-        if (mds.matches) {
-          dispatch(toggleModal(true));
-        } else {
-          setApiSuccess(true);
-        }
-      } catch {
-        throw new Error();
-      }
+    if (!isLoggedIn) {
+      await dispatch(
+        getDiet({
+          height: Number(height),
+          age: Number(age),
+          curWeight: Number(currentWeight),
+          desWeight: Number(desiredWeight),
+          bloodType: Number(bloodType),
+        })
+      );
+      dispatch(
+        setUserData({
+          height: height,
+          age: age,
+          curWeight: currentWeight,
+          desWeight: desiredWeight,
+          bloodType: bloodType,
+        })
+      );
     }
-    reset();
+    //   if (isLoggedIn) {
+    //     try {
+    //       await dispatch(
+    //         getDietUser({
+    //           height: Number(height),
+    //           age: Number(age),
+    //           curWeight: Number(currentWeight),
+    //           desWeight: Number(desiredWeight),
+    //           bloodType: Number(bloodType),
+    //         })
+    //       );
+    //       if (mds.matches) {
+    //         dispatch(toggleModal(true));
+    //       } else {
+    //         setApiSuccess(true);
+    //       }
+    //     } catch {
+    //       throw new Error();
+    //     }
+    //   } else {
+    //     try {
+    //       await dispatch(
+    //         getDiet({
+    //           height: Number(height),
+    //           age: Number(age),
+    //           curWeight: Number(currentWeight),
+    //           desWeight: Number(desiredWeight),
+    //           bloodType: Number(bloodType),
+    //         })
+    //       );
+    //       dispatch(
+    //         changeUserDate({
+    //           height: height,
+    //           age: age,
+    //           curWeight: currentWeight,
+    //           desWeight: desiredWeight,
+    //           bloodType: bloodType,
+    //         })
+    //       );
+
+    //       if (mds.matches) {
+    //         dispatch(toggleModal(true));
+    //       } else {
+    //         setApiSuccess(true);
+    //       }
+    //     } catch {
+    //       throw new Error();
+    //     }
+    //   }
+    //   reset();
   };
 
   if (apiSuccess) return <Navigate to="/modal" />;

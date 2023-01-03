@@ -19,8 +19,6 @@ import {
 } from './Diary.styled';
 import { useWindowResize } from 'hooks/useWindowResize';
 import { BarBackground } from 'components/BarBackground';
-// import { authSelectors } from '../../redux/auth/auth-selectors';
-// import { useSelector } from 'react-redux';
 
 const Diary = () => {
   const date = useSelector(diarySelectors.selectDate);
@@ -36,7 +34,7 @@ const Diary = () => {
 
   return (
     <>
-    <BarBackground/>
+      <BarBackground />
       <DiaryStyledPage>
         <DiaryStyled>
           <DiaryCalendar>
@@ -59,7 +57,7 @@ const Diary = () => {
         <RightSideBar />
       </DiaryStyledPage>
       {/* </BarBackground> */}
-      </>
+    </>
   );
 };
 

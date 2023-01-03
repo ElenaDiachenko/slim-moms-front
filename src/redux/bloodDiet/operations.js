@@ -6,7 +6,7 @@ import { createAsyncThunk, createAction } from '@reduxjs/toolkit';
 import { apiAxios } from '../../servises/api';
 
 export const getDiet = createAsyncThunk(
-  'blood',
+  'diet/getDiet',
   async (credentials, thunkAPI) => {
     try {
       const { data } = await apiAxios.post('products', credentials);
@@ -21,7 +21,7 @@ export const getDiet = createAsyncThunk(
 );
 
 export const getDietUser = createAsyncThunk(
-  'blood',
+  'diet/calculateDietId',
   async (credentials, thunkAPI) => {
     try {
       const { data } = await apiAxios.patch('users/update', credentials);
@@ -35,6 +35,6 @@ export const getDietUser = createAsyncThunk(
   }
 );
 
-export const clearState = createAction('data/clearState');
-export const toggleModal = createAction('showModal/toggleModal');
-export const changeUserDate = createAction('userDate/changeUserDate');
+// export const clearState = createAction('data/clearState');
+// export const toggleModal = createAction('showModal/toggleModal');
+// export const changeUserDate = createAction('userDate/changeUserDate');

@@ -14,7 +14,7 @@ import {
 
 // import { logInReducer } from './login/slice';
 import authReducer from './auth/auth-slice';
-import { bloodDietReducer } from './bloodDiet/slice';
+// import { bloodDietReducer } from './bloodDiet/slice';
 import productsReducer from './products/products-slice';
 import { diaryReducer } from './diary/diarySlice';
 
@@ -34,7 +34,7 @@ const authPersistConfig = {
 export const store = configureStore({
   reducer: {
     auth: persistReducer(authPersistConfig, authReducer),
-    bloodDiet: bloodDietReducer,
+    // bloodDiet: bloodDietReducer,
     products: productsReducer,
     diary: diaryReducer,
   },

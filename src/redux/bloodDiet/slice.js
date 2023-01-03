@@ -1,66 +1,46 @@
-const { createSlice } = require('@reduxjs/toolkit');
-const {
-  getDiet,
-  getDietUser,
-  clearState,
-  toggleModal,
-  changeUserDate,
-} = require('./operations');
+import { createSlice } from '@reduxjs/toolkit';
+import { getDiet } from './operations';
 
 const initialState = {
   data: {},
   isLoading: false,
   error: false,
   showModal: false,
-  userDate: {
-    height: '',
-    age: '',
-    curWeight: '',
-    desWeight: '',
-    bloodType: '',
-  },
+  // userDate: {
+  //   height: '',
+  //   age: '',
+  //   curWeight: '',
+  //   desWeight: '',
+  //   bloodType: '',
+  // },
 };
 
 const bloodDietSlice = createSlice({
-  name: 'blood',
+  name: 'diet',
   initialState,
-  extraReducers: {
-    [getDiet.pending](state) {
-      state.isLoading = true;
-      state.error = false;
-    },
-    [getDiet.fulfilled](state, action) {
-      state.data = action.payload;
-      state.isLoading = false;
-      state.error = false;
-    },
-    [getDiet.rejected](state) {
-      state.isLoading = false;
-      state.error = true;
-    },
-    [getDietUser.pending](state) {
-      state.isLoading = true;
-      state.error = false;
-    },
-    [getDietUser.fulfilled](state, action) {
-      state.data = action.payload;
-      state.isLoading = false;
-      state.error = false;
-    },
-    [getDietUser.rejected](state) {
-      state.isLoading = false;
-      state.error = true;
-    },
-    [clearState](state, _) {
+  reducers: {
+    clearState(state) {
       state.data = {};
     },
-    [toggleModal](state, action) {
-      state.showModal = action.payload;
-    },
-    [changeUserDate](state, action) {
-      state.userDate = action.payload;
+    toggleModal(state, { payload }) {
+      state.showModal = payload;
     },
   },
+  extraReducers: builder =>
+    builder
+      .addCase(getDiet.pending, state => {
+        state.isLoading = true;
+        state.error = false;
+      })
+      .addCase(getDiet.fulfilled, (state, { payload }) => {
+        state.data = payload;
+        state.isLoading = false;
+        state.error = false;
+      })
+      .addCase(getDiet.rejected, (state, { payload }) => {
+        state.isLoading = false;
+        state.error = true;
+      }),
 });
 
 export const bloodDietReducer = bloodDietSlice.reducer;

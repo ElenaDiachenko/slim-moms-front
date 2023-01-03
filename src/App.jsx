@@ -37,21 +37,21 @@ export const App = () => {
     dispatch(fetchCurrentUser());
   }, [dispatch]);
 
-  const showModal = useSelector(bloodSelectors.selectShowModal);
+  // const showModal = useSelector(bloodSelectors.selectShowModal);
 
-  useEffect(() => {
-    if (showModal) {
-      document.body.style.overflow = 'hidden';
-    }
-    return () => {
-      document.body.style.overflow = 'visible';
-    };
-  }, [showModal]);
+  // useEffect(() => {
+  //   if (showModal) {
+  //     document.body.style.overflow = 'hidden';
+  //   }
+  //   return () => {
+  //     document.body.style.overflow = 'visible';
+  //   };
+  // }, [showModal]);
 
   return (
     <>
       <Global styles={GlobalStyles} />
-      {showModal && <Modal />}
+      {/* {showModal && <Modal />} */}
       {isRefreshing ? (
         <Loader />
       ) : (

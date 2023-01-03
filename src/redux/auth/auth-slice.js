@@ -15,7 +15,7 @@ import {
 import { anyCases } from '../utils';
 
 const initialState = {
-  userDate: null,
+  userData: null,
   user: {
     name: null,
     email: null,

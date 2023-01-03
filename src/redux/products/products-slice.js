@@ -1,65 +1,57 @@
-import { createSlice } from '@reduxjs/toolkit';
 import {
-  removeProduct,
+  createSlice,
+  isAnyOf,
+  isFulfilled,
+  isPending,
+  isRejected,
+} from '@reduxjs/toolkit';
+import {
   getAllProducts,
   getProductByQuery,
-  addProduct,
+  getDiet,
 } from './products-operations';
+import { anyCases } from '../utils';
 
-const handlePending = state => {
-  state.isLoading = true;
-};
+const actions = [getAllProducts, getProductByQuery, getDiet];
 
-const handleRejcted = (state, action) => {
-  state.isLoading = false;
-  state.error = action.payload;
-};
-
-const handleProducts = (state, { payload }) => {
-  state.error = null;
-  state.items = payload;
-};
-
-const handleProductsByQuery = (state, { payload }) => {
-  state.error = null;
-  state.isLoading = false;
-  state.productsByQuery = payload;
-};
+const pendingActions = isPending(...actions);
+const fulfilledActions = isFulfilled(...actions);
+const rejectedActions = isRejected(...actions);
 
 const productSlice = createSlice({
   name: 'products',
   initialState: {
     items: [],
     productsByQuery: [],
+    dataDiet: {},
     isLoading: false,
     error: null,
   },
-  extraReducers: {
-    [addProduct.pending]: handlePending,
-    [addProduct.fulfilled](state, action) {
-      state.isLoading = false;
-      state.error = null;
-      state.items = (state, { payload }) => [...state, payload];
-      console.log('Product adds');
+  reducers: {
+    clearState(state) {
+      state.dataDiet = {};
     },
-    [addProduct.rejected]: handleRejcted,
-
-    [removeProduct.pending]: handlePending,
-    [removeProduct.fulfilled](state, action) {
-      state.isLoading = false;
-      state.error = null;
-      const index = state.item.findIndex(item => item.id === action.payload.id);
-      state.items.splice(index, 1);
-      console.log('Product removed');
-    },
-    [removeProduct.rejected]: handleRejcted,
-    [getAllProducts.pending]: handlePending,
-    [getAllProducts.fulfilled]: handleProducts,
-    [getAllProducts.rejected]: handleRejcted,
-    [getProductByQuery.pending]: handlePending,
-    [getProductByQuery.fulfilled]: handleProductsByQuery,
-    [getProductByQuery.rejected]: handleRejcted,
   },
-});
+  extraReducers: builder =>
+    builder
+      .addCase(getProductByQuery.fulfilled, (state, { payload }) => {
+        state.productsByQuery = payload;
+      })
+      .addCase(getDiet.fulfilled, (state, { payload }) => {
+        state.dataDiet = payload.result;
+      })
+      .addMatcher(isAnyOf(fulfilledActions), anyCases.handleAnyFulfield)
+      .addMatcher(isAnyOf(pendingActions), anyCases.handleAnyPending)
+      .addMatcher(isAnyOf(rejectedActions), anyCases.handleAnyRejected),
 
+  // extraReducers: {
+  //   [getAllProducts.pending]: handlePending,
+  //   [getAllProducts.fulfilled]: handleProducts,
+  //   [getAllProducts.rejected]: handleRejcted,
+  //   [getProductByQuery.pending]: handlePending,
+  //   [getProductByQuery.fulfilled]: handleProductsByQuery,
+  //   [getProductByQuery.rejected]: handleRejcted,
+  // },
+});
+export const { clearState } = productSlice.actions;
 export default productSlice.reducer;
