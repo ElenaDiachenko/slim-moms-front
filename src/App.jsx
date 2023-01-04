@@ -14,10 +14,9 @@ import ErrorRoute from 'routes/ErrorRoutes';
 import { Global } from '@emotion/react';
 import { GlobalStyles } from 'components/GlobalStyles';
 import { useAuth } from 'hooks/useAuth';
-import { fetchCurrentUser } from 'redux/auth/auth-operations';
+import { fetchCurrentUser, updateUser } from 'redux/auth/auth-operations';
 import Loader from 'components/Loader/Loader';
 //Add lazy
-import { bloodSelectors } from 'redux/bloodDiet/bloodDietSelectors';
 import { userSelector } from 'redux/auth/auth-selectors';
 
 const RegistrationPage = lazy(() => import('./pages/RegistrationPage/index'));
@@ -32,12 +31,21 @@ const AddProduct = lazy(() => import('./pages/AddProduct/index'));
 
 export const App = () => {
   const dispatch = useDispatch();
-  const { isRefreshing } = useAuth();
+  const { isRefreshing, isUpdate, isLoggedIn } = useAuth();
   const userSavedData = useSelector(userSelector.selectUserSavedData);
 
   useEffect(() => {
-    dispatch(fetchCurrentUser());
-  }, [dispatch]);
+    (async () => {
+      if (isLoggedIn && !isUpdate && userSavedData) {
+        await dispatch(updateUser(userSavedData));
+      }
+      dispatch(fetchCurrentUser());
+    })();
+  }, [dispatch, isLoggedIn, isUpdate, userSavedData]);
+
+  // useEffect(() => {
+  //   dispatch(fetchCurrentUser());
+  // }, [dispatch]);
 
   // const showModal = useSelector(bloodSelectors.selectShowModal);
 
@@ -70,9 +78,9 @@ export const App = () => {
             <Route
               path="/modal"
               element={
-                <ErrorRoute>
+                <PrivateRoute>
                   <ModalPage />
-                </ErrorRoute>
+                </PrivateRoute>
               }
             />
             {/* PRIVATE ROUTES */}
@@ -122,7 +130,8 @@ export const App = () => {
               path="/registration"
               element={
                 <PublicRoute
-                  redirectTo={userSavedData ? '/diary' : '/calculator'}
+                  //  redirectTo={userSavedData ? '/diary' : '/calculator'}
+                  redirectTo="/diary"
                   restricted
                 >
                   <RegistrationPage />

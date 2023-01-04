@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Formik, ErrorMessage } from 'formik';
 import { register } from 'redux/auth/auth-operations';
-import { updateUser } from 'redux/auth/auth-operations';
+
 import * as yup from 'yup';
 import { ButtonAuth, ButtonLinkAuth } from 'components/Button';
 import { Link } from 'react-router-dom';
-import { userSelector } from 'redux/auth/auth-selectors';
 import {
   Title,
   FormList,
@@ -55,13 +53,11 @@ const initialValues = {
 
 export const RegistrationForm = () => {
   const [showPassword, setShow] = useState(false);
-  const userSavedData = useSelector(userSelector.selectUserSavedData);
   const handleClick = () => setShow(!showPassword);
   const dispatch = useDispatch();
 
-  const handleSubmit = async ({ name, email, password }, { resetForm }) => {
-    await dispatch(register({ name, email, password }));
-    userSavedData && (await dispatch(updateUser(userSavedData)));
+  const handleSubmit = ({ name, email, password }, { resetForm }) => {
+    dispatch(register({ name, email, password }));
     resetForm();
   };
 

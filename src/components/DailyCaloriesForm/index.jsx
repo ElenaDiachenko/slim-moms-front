@@ -125,6 +125,7 @@ export const DailyCaloriesForm = () => {
           bloodType: Number(bloodType),
         })
       );
+      handleOpenModal();
     }
     //   if (isLoggedIn) {
     //     try {

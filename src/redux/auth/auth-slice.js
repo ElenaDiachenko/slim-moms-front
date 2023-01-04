@@ -29,6 +29,7 @@ const initialState = {
   },
   token: null,
   isLoading: false,
+  isUpdate: false,
   isLoggedIn: false,
   isRefreshing: false,
 };
@@ -67,6 +68,7 @@ const authSlice = createSlice({
       })
       .addCase(logOut.fulfilled, (state, { payload }) => {
         state.user = initialState.user;
+
         // state.bloodType = null
         state.token = null;
         state.isLoggedIn = false;
@@ -83,8 +85,16 @@ const authSlice = createSlice({
       .addCase(fetchCurrentUser.rejected, state => {
         state.isRefreshing = false;
       })
+      .addCase(updateUser.pending, (state, { payload }) => {
+        state.isUpdate = false;
+      })
       .addCase(updateUser.fulfilled, (state, { payload }) => {
         state.user = { ...state.user, ...payload.data.user };
+        state.isUpdate = true;
+        state.userData = null;
+      })
+      .addCase(updateUser.rejected, state => {
+        state.isUpdate = true;
       })
       .addMatcher(isAnyOf(fulfilledActions), anyCases.handleAnyFulfield)
       .addMatcher(isAnyOf(pendingActions), anyCases.handleAnyPending)

@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getByDate } from 'redux/diary/diaryOperations';
-import { getUser } from '../../redux/user/userOperation';
 import { diarySelectors } from 'redux/diary/diarySelectors';
 import { DiaryAddProductForm } from 'components/DiaryAddProductForm';
 import { DiaryDateCalendar } from 'components/DiaryDateСalendar';
