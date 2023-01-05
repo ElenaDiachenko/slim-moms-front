@@ -48,17 +48,25 @@ export const logIn = createAsyncThunk(
 export const updateUser = createAsyncThunk(
   'user/updateUser',
   async (credentials, thunkAPI) => {
-    // const state = thunkAPI.getState();
-    // const userData = state.auth.userData;
     try {
       const { data } = await apiAxios.patch(`users/update`, credentials);
 
       return data;
     } catch (error) {
+      console.log('update error');
       return thunkAPI.rejectWithValue(error.message);
     }
   }
 );
+export const getUser = createAsyncThunk('auth/getUser', async (_, thunkAPI) => {
+  try {
+    const { data } = await API.get('users/current');
+    return data;
+  } catch (err) {
+    creatNotifyError(err.message);
+    return thunkAPI.rejectWithValue(err);
+  }
+});
 
 export const fetchCurrentUser = createAsyncThunk(
   'auth/refresh',

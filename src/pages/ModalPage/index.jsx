@@ -6,7 +6,7 @@ const Box = styled.div`
 `;
 
 const ModalPage = () => {
-  return <Box>{/* <DailyCalorieIntake /> */}</Box>;
+  return <Box><DailyCalorieIntake /></Box>;
 };
 
 export default ModalPage;

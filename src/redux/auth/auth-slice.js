@@ -11,6 +11,7 @@ import {
   logIn,
   fetchCurrentUser,
   updateUser,
+  getUser,
 } from './auth-operations';
 import { anyCases } from '../utils';
 
@@ -34,14 +35,14 @@ const initialState = {
   isRefreshing: false,
 };
 
-const actions = [logOut, register, logIn, updateUser];
+const actions = [logOut, register, logIn, updateUser, getUser];
 
 const pendingActions = isPending(...actions);
 const fulfilledActions = isFulfilled(...actions);
 const rejectedActions = isRejected(...actions);
 
 const authSlice = createSlice({
-  name: 'user',
+  name: 'auth',
   initialState,
   reducers: {
     setUserData(state, { payload }) {
@@ -68,11 +69,15 @@ const authSlice = createSlice({
       })
       .addCase(logOut.fulfilled, (state, { payload }) => {
         state.user = initialState.user;
+        state.userData = null;
 
         // state.bloodType = null
         state.token = null;
         state.isLoggedIn = false;
         state.isLoading = false;
+      })
+      .addCase(getUser.fulfilled, (state, { payload }) => {
+        state.user = payload.data.user;
       })
       .addCase(fetchCurrentUser.pending, state => {
         state.isRefreshing = true;
@@ -85,7 +90,7 @@ const authSlice = createSlice({
       .addCase(fetchCurrentUser.rejected, state => {
         state.isRefreshing = false;
       })
-      .addCase(updateUser.pending, (state, { payload }) => {
+      .addCase(updateUser.pending, state => {
         state.isUpdate = false;
       })
       .addCase(updateUser.fulfilled, (state, { payload }) => {
@@ -94,7 +99,7 @@ const authSlice = createSlice({
         state.userData = null;
       })
       .addCase(updateUser.rejected, state => {
-        state.isUpdate = true;
+        state.isUpdate = false;
       })
       .addMatcher(isAnyOf(fulfilledActions), anyCases.handleAnyFulfield)
       .addMatcher(isAnyOf(pendingActions), anyCases.handleAnyPending)

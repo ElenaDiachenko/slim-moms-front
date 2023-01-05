@@ -4,7 +4,7 @@ export const Wrap = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-//   max-width: 610px;
+  //   max-width: 610px;
   padding: 32px 20px 41px;
   @media screen and (min-width: 768px) {
     padding: 100px 32px 48px 32px;
@@ -51,14 +51,6 @@ export const WrapBox = styled.div`
   }
 `;
 
-// export const CalcWrap = styled.div`
-// @media screen and (min-width: 1280px) {
-//     display: flex;
-//   flex-flow: column;
-//   width: 100%;
-//   }
-// `;
-
 export const Label = styled.label`
   position: relative;
   width: 100%;
@@ -84,14 +76,14 @@ export const LabelBlood = styled.label`
   line-height: 17px;
   letter-spacing: 0.04em;
   color: #9b9faa;
-  margin-bottom:40px ;
-`
+  margin-bottom: 40px;
+`;
 export const BloodTypeTitle = styled.p`
-margin-bottom: 8px;
-@media (min-width: 768px) {
+  margin-bottom: 8px;
+  @media (min-width: 768px) {
     height: 36px;
     border-bottom: 1px solid #e0e0e0;
-}
+  }
 `;
 
 export const Input = styled.input`

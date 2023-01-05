@@ -1,5 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
-import { lazy, useEffect } from 'react';
+import { lazy, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 // import { lazy, Suspense, useEffect } from 'react';
 import { ToastContainer } from 'react-toastify';
@@ -14,7 +14,11 @@ import ErrorRoute from 'routes/ErrorRoutes';
 import { Global } from '@emotion/react';
 import { GlobalStyles } from 'components/GlobalStyles';
 import { useAuth } from 'hooks/useAuth';
-import { fetchCurrentUser, updateUser } from 'redux/auth/auth-operations';
+import {
+  fetchCurrentUser,
+  updateUser,
+  getUser,
+} from 'redux/auth/auth-operations';
 import Loader from 'components/Loader/Loader';
 //Add lazy
 import { userSelector } from 'redux/auth/auth-selectors';
@@ -35,17 +39,18 @@ export const App = () => {
   const userSavedData = useSelector(userSelector.selectUserSavedData);
 
   useEffect(() => {
+    if (!isLoggedIn) return;
     (async () => {
-      if (isLoggedIn && !isUpdate && userSavedData) {
+      if (!isUpdate && userSavedData) {
         await dispatch(updateUser(userSavedData));
       }
-      dispatch(fetchCurrentUser());
+      await dispatch(getUser());
     })();
-  }, [dispatch, isLoggedIn, isUpdate, userSavedData]);
+  }, [dispatch, isUpdate, userSavedData, isLoggedIn]);
 
-  // useEffect(() => {
-  //   dispatch(fetchCurrentUser());
-  // }, [dispatch]);
+  useEffect(() => {
+    dispatch(fetchCurrentUser());
+  }, [dispatch]);
 
   // const showModal = useSelector(bloodSelectors.selectShowModal);
 
@@ -75,14 +80,7 @@ export const App = () => {
                 </PublicRoute>
               }
             />
-            <Route
-              path="/modal"
-              element={
-                <PrivateRoute>
-                  <ModalPage />
-                </PrivateRoute>
-              }
-            />
+            <Route path="/modal" element={<ModalPage />} />
             {/* PRIVATE ROUTES */}
             <Route
               path="/logout"

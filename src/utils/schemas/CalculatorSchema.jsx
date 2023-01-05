@@ -29,7 +29,9 @@ const calculatorSchema = Yup.object().shape({
     .integer()
     .max(500, 'A lot...')
     .required('Fill all the fields!'),
-  bloodType: Yup.string().required('Choose your blood type!')
+  bloodType: Yup.number()
+    .oneOf([1, 2, 3, 4])
+    .required('Choose your blood type!'),
 });
 
 export default calculatorSchema;

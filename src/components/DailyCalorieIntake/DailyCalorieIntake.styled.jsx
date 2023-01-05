@@ -127,3 +127,7 @@ export const Link = styled(NavLink)`
     background: ${theme.colors.white};
   }
 `;
+export const ButtonContainer = styled.div`
+  display: grid;
+  place-content: center;
+`;

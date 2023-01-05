@@ -1,26 +1,30 @@
 import { Button } from 'components/Button';
+import { Formik } from 'formik';
+
 import {
-  Wrap,
-  Title,
-  Form,
+  DailyCaloriesContainer,
+  DailyCaloriesFormContainer,
+  DailyCaloriesFormTitle,
+  FieldStyled,
   Label,
-  Input,
-  BloodList,
-  RadioButton,
-  ButtonContainer,
-  BloodListItem,
-  WrapBox,
+  InputLabel,
+  InputContainer,
+  FieldStyledTab,
+  FieldStyledMobil,
+  FieldRadioGrup,
+  RadioGrupLabel,
+  RadioStyled,
+  Radiolabel,
+  FormStyled,
+  ButtonCont,
+  ErrorMessageContainer,
 } from './DailyCaloriesForm.styled';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import Modal from 'components/Modal';
-// import { changeUserDate } from '../../redux/bloodDiet/operations';
-// import { toggleModal } from '../../redux/bloodDiet/operations';
-// import { getDiet, getDietUser, toggleModal, changeUserDate } from '../../redux/bloodDiet/operations';
 import { useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
-// import { bloodSelectors } from 'redux/bloodDiet/bloodDietSelectors';
 import { selectIsLoggedIn } from 'redux/auth/auth-selectors';
 import calculatorSchema from '../../utils/schemas/CalculatorSchema';
 import { userSelector } from 'redux/auth/auth-selectors';
@@ -29,275 +33,210 @@ import { getDiet } from 'redux/products/products-operations';
 import { updateUser } from 'redux/auth/auth-operations';
 import { useModal } from 'hooks/useModal';
 import DailyCalorieIntake from '../DailyCalorieIntake';
+import Loader from 'components/Loader/Loader';
 
 export const DailyCaloriesForm = () => {
   const { isModalOpen, closeModal, openModal } = useModal();
-  const savedFormData = useSelector(userSelector.selectUser);
   const [apiSuccess, setApiSuccess] = useState(false);
-  const [height, setHeight] = useState(savedFormData.height ?? '');
-  const [age, setAge] = useState(savedFormData.age ?? '');
-  const [currentWeight, setCurrentWeight] = useState(
-    savedFormData.curWeight ?? ''
-  );
-  const [desiredWeight, setDesiredWeight] = useState(
-    savedFormData.desWeight ?? ''
-  );
-  const [bloodType, setBloodType] = useState(savedFormData.bloodType ?? '1');
+  const user = useSelector(userSelector.selectUser);
+  const [isLoading, setIsLoading] = useState(false);
+  const isLoggedIn = useSelector(selectIsLoggedIn);
+  const initialValues = isLoggedIn
+    ? {
+        height: user.height,
+        age: user.age,
+        curWeight: user.curWeight,
+        desWeight: user.desWeight,
+        bloodType: user.bloodType.toString(),
+      }
+    : {
+        height: '',
+        age: '',
+        curWeight: '',
+        desWeight: '',
+        bloodType: '1',
+      };
 
   const dispatch = useDispatch();
 
-  const isLoggedIn = useSelector(selectIsLoggedIn);
   const mds = window.matchMedia('(min-width: 768px)');
 
-  // useEffect(() => {
-  //   if (isLoggedIn) {
-  //     setHeight(savedFormData.height);
-  //     setAge(savedFormData.age);
-  //     setCurrentWeight(savedFormData.curWeight);
-  //     setDesiredWeight(savedFormData.desWeight);
-  //     setBloodType(savedFormData.bloodType);
-  //   }
-  // }, [isLoggedIn, savedFormData]);
-
-  const handleInputChange = event => {
-    const { name, value } = event.currentTarget;
-    switch (name) {
-      case 'height':
-        setHeight(value);
-        break;
-      case 'age':
-        setAge(value);
-        break;
-      case 'currentWeight':
-        setCurrentWeight(value);
-        break;
-      case 'desiredWeight':
-        setDesiredWeight(value);
-        break;
-      default:
-        return;
-    }
-  };
-
-  const handleRadioChange = event => {
-    setBloodType(event.target.value);
-  };
-
-  const reset = () => {
-    setHeight('');
-    setAge('');
-    setCurrentWeight('');
-    setDesiredWeight('');
-    setBloodType('1');
-  };
   const handleOpenModal = () => openModal();
 
-  const handleSubmit = async event => {
-    event.preventDefault();
+  const handleSubmit = async data => {
+    setIsLoading(true);
     if (!isLoggedIn) {
-      await dispatch(
-        getDiet({
-          height: Number(height),
-          age: Number(age),
-          curWeight: Number(currentWeight),
-          desWeight: Number(desiredWeight),
-          bloodType: Number(bloodType),
-        })
-      );
-      await dispatch(
-        setUserData({
-          height: height,
-          age: age,
-          curWeight: currentWeight,
-          desWeight: desiredWeight,
-          bloodType: bloodType,
-        })
-      );
-      handleOpenModal();
-      reset();
-    } else {
-      await dispatch(
-        updateUser({
-          height: Number(height),
-          age: Number(age),
-          curWeight: Number(currentWeight),
-          desWeight: Number(desiredWeight),
-          bloodType: Number(bloodType),
-        })
-      );
-      handleOpenModal();
+      await dispatch(getDiet(data));
+      await dispatch(setUserData(data));
+      setIsLoading(false);
+      if (mds.matches) {
+        handleOpenModal();
+      } else {
+        setApiSuccess(true);
+      }
     }
-    //   if (isLoggedIn) {
-    //     try {
-    //       await dispatch(
-    //         getDietUser({
-    //           height: Number(height),
-    //           age: Number(age),
-    //           curWeight: Number(currentWeight),
-    //           desWeight: Number(desiredWeight),
-    //           bloodType: Number(bloodType),
-    //         })
-    //       );
-    //       if (mds.matches) {
-    //         dispatch(toggleModal(true));
-    //       } else {
-    //         setApiSuccess(true);
-    //       }
-    //     } catch {
-    //       throw new Error();
-    //     }
-    //   } else {
-    //     try {
-    //       await dispatch(
-    //         getDiet({
-    //           height: Number(height),
-    //           age: Number(age),
-    //           curWeight: Number(currentWeight),
-    //           desWeight: Number(desiredWeight),
-    //           bloodType: Number(bloodType),
-    //         })
-    //       );
-    //       dispatch(
-    //         changeUserDate({
-    //           height: height,
-    //           age: age,
-    //           curWeight: currentWeight,
-    //           desWeight: desiredWeight,
-    //           bloodType: bloodType,
-    //         })
-    //       );
-
-    //       if (mds.matches) {
-    //         dispatch(toggleModal(true));
-    //       } else {
-    //         setApiSuccess(true);
-    //       }
-    //     } catch {
-    //       throw new Error();
-    //     }
-    //   }
-    //   reset();
+    if (isLoggedIn) {
+      await dispatch(updateUser(data));
+      setIsLoading(false);
+      if (mds.matches) {
+        handleOpenModal();
+      } else {
+        setApiSuccess(true);
+      }
+    }
   };
 
   if (apiSuccess) return <Navigate to="/modal" />;
 
   return (
     <>
-      <Wrap>
-        <Title>Calculate your daily calorie intake right now</Title>
-        <Form validationSchema={calculatorSchema} onSubmit={handleSubmit}>
-          <WrapBox>
-            <Label htmlFor="height">
-              Height *
-              <Input
-                pattern="[0-9]"
-                required
-                id="height"
-                type="number"
-                name="height"
-                value={height}
-                onChange={handleInputChange}
-              />
-            </Label>
-            <Label htmlFor="age">
-              Age *
-              <Input
-                pattern="[0-9]"
-                id="age"
-                required
-                type="number"
-                name="age"
-                value={age}
-                onChange={handleInputChange}
-              />
-            </Label>
-            <Label htmlFor="currentWeight">
-              Current weight *
-              <Input
-                pattern="[0-9]"
-                required
-                id="currentWeight"
-                type="number"
-                name="currentWeight"
-                value={currentWeight}
-                onChange={handleInputChange}
-              />
-            </Label>
-          </WrapBox>
-          <WrapBox>
-            <Label htmlFor="desiredWeight">
-              Desired weight *
-              <Input
-                pattern="[0-9]"
-                id="desiredWeight"
-                required
-                name="desiredWeight"
-                type="number"
-                value={desiredWeight}
-                onChange={handleInputChange}
-              />
-            </Label>
-            <Label htmlFor="bloodType" required>
-              <p style={{ marginBottom: '8px' }}>Blood type *</p>
-              <BloodList>
-                <BloodListItem>
-                  <RadioButton
-                    type="radio"
-                    // checked
-                    name="bloodType"
-                    id="blood-inp-1"
-                    value={1}
-                    checked={bloodType === '1' ? true : false}
-                    onChange={handleRadioChange}
+      {isLoading ? <Loader /> : null}
+      <DailyCaloriesContainer>
+        <DailyCaloriesFormContainer>
+          <DailyCaloriesFormTitle>
+            Calculate your daily calorie intake right now
+          </DailyCaloriesFormTitle>
+          <Formik
+            initialValues={initialValues}
+            validationSchema={calculatorSchema}
+            onSubmit={handleSubmit}
+          >
+            {({ errors, touched }) => (
+              <FormStyled>
+                <InputContainer>
+                  <FieldStyled name="height" type="number" autoComplete="off" />
+                  <InputLabel htmlFor="height">Height *</InputLabel>
+                  {errors.height && touched.height ? (
+                    <ErrorMessageContainer>
+                      {errors.height}
+                    </ErrorMessageContainer>
+                  ) : null}
+                </InputContainer>
+                <FieldStyledTab>
+                  <FieldStyled
+                    name="desWeight"
+                    type="number"
+                    autoComplete="off"
                   />
-                  <label htmlFor="blood-inp-1">1</label>
-                </BloodListItem>
-                <BloodListItem>
-                  <RadioButton
-                    type="radio"
-                    name="bloodType"
-                    id="blood-inp-2"
-                    value={2}
-                    checked={bloodType === '2' ? true : false}
-                    onChange={handleRadioChange}
+                  <InputLabel>Desired weight *</InputLabel>
+                  {errors.desWeight && touched.desWeight ? (
+                    <ErrorMessageContainer>
+                      {errors.desWeight}
+                    </ErrorMessageContainer>
+                  ) : null}
+                </FieldStyledTab>
+                <InputContainer>
+                  <FieldStyled name="age" type="number" autoComplete="off" />
+                  <InputLabel>Age *</InputLabel>
+                  {errors.age && touched.age ? (
+                    <ErrorMessageContainer>{errors.age}</ErrorMessageContainer>
+                  ) : null}
+                </InputContainer>
+                <FieldStyledMobil>
+                  <FieldStyled
+                    name="curWeight"
+                    type="number"
+                    autoComplete="off"
                   />
-                  <label htmlFor="blood-inp-2">2</label>
-                </BloodListItem>
-                <BloodListItem>
-                  <RadioButton
-                    type="radio"
-                    name="bloodType"
-                    id="blood-inp-3"
-                    value={3}
-                    checked={bloodType === '3' ? true : false}
-                    onChange={handleRadioChange}
+                  <InputLabel>Current weight *</InputLabel>
+
+                  {errors.curWeight && touched.curWeight ? (
+                    <ErrorMessageContainer>
+                      {errors.curWeight}
+                    </ErrorMessageContainer>
+                  ) : null}
+                </FieldStyledMobil>
+                <FieldStyledMobil>
+                  <FieldStyled
+                    name="desWeight"
+                    type="number"
+                    autoComplete="off"
                   />
-                  <label htmlFor="blood-inp-3">3</label>
-                </BloodListItem>
-                <BloodListItem>
-                  <RadioButton
-                    type="radio"
-                    name="bloodType"
-                    id="blood-inp-4"
-                    value={4}
-                    checked={bloodType === '4' ? true : false}
-                    onChange={handleRadioChange}
+                  <InputLabel>Desired weight *</InputLabel>
+
+                  {errors.desWeight && touched.desWeight ? (
+                    <ErrorMessageContainer>
+                      {errors.desWeight}
+                    </ErrorMessageContainer>
+                  ) : null}
+                </FieldStyledMobil>
+                <FieldRadioGrup
+                  component="div"
+                  name="bloodType"
+                  label="bloodType"
+                >
+                  <Label>Blood type *</Label>
+                  <RadioGrupLabel>
+                    <Radiolabel htmlFor="bloodType">
+                      <RadioStyled
+                        type="radio"
+                        name="bloodType"
+                        id="1"
+                        value="1"
+                        defaultChecked={initialValues.bloodType === '1' ?? '1'}
+                      />
+                      1
+                    </Radiolabel>
+                    <Radiolabel htmlFor="bloodType">
+                      <RadioStyled
+                        type="radio"
+                        name="bloodType"
+                        id="2"
+                        value="2"
+                        defaultChecked={initialValues.bloodType === '2' ?? '1'}
+                      />
+                      2
+                    </Radiolabel>
+                    <Radiolabel htmlFor="bloodType">
+                      <RadioStyled
+                        type="radio"
+                        name="bloodType"
+                        id="3"
+                        value="3"
+                        defaultChecked={initialValues.bloodType === '3' ?? '1'}
+                      />
+                      3
+                    </Radiolabel>
+                    <Radiolabel htmlFor="bloodType">
+                      <RadioStyled
+                        type="radio"
+                        name="bloodType"
+                        id="4"
+                        value="4"
+                        defaultChecked={initialValues.bloodType === '4' ?? '1'}
+                      />
+                      4
+                    </Radiolabel>
+                  </RadioGrupLabel>
+                </FieldRadioGrup>
+                <FieldStyledTab>
+                  <FieldStyled
+                    name="curWeight"
+                    type="number"
+                    autoComplete="off"
                   />
-                  <label htmlFor="blood-inp-4">4</label>
-                </BloodListItem>
-              </BloodList>
-            </Label>
-          </WrapBox>
-          <ButtonContainer>
-            <Button type="submit" text="Start losing weight" />
-          </ButtonContainer>
-        </Form>
-      </Wrap>
-      {isModalOpen && (
-        <Modal onClose={closeModal}>
-          <DailyCalorieIntake onClose={closeModal} />
-        </Modal>
-      )}
+                  <InputLabel>Current weight *</InputLabel>
+
+                  {errors.curWeight && touched.curWeight ? (
+                    <ErrorMessageContainer>
+                      {errors.curWeight}
+                    </ErrorMessageContainer>
+                  ) : null}
+                </FieldStyledTab>
+
+                <ButtonCont>
+                  <Button type="submit" text="Start losing weight" />
+                </ButtonCont>
+              </FormStyled>
+            )}
+          </Formik>
+        </DailyCaloriesFormContainer>
+        {isModalOpen && (
+          <Modal onClose={closeModal}>
+            <DailyCalorieIntake onClose={closeModal} />
+          </Modal>
+        )}
+      </DailyCaloriesContainer>
     </>
   );
 };

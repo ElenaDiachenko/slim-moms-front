@@ -58,13 +58,3 @@ export const ModalButtonIcon = styled.svg`
   width: 20px;
   height: 20px;
 `;
-
-export const NotFound = styled.p`
-  font-family: 'Verdana';
-  font-style: normal;
-  font-weight: ${theme.fontWeights.bold};
-  font-size: 36px;
-  line-height: 1.4;
-  color: ${theme.colors.textSecond};
-  text-align: center;
-`;

@@ -10,10 +10,9 @@ import {
   Item,
   BoxList,
   Link,
+  ButtonContainer,
 } from './DailyCalorieIntake.styled';
-import { useDispatch, useSelector } from 'react-redux';
-// import { clearState } from '../../redux/bloodDiet/operations';
-// import { toggleModal } from 'redux/bloodDiet/operations';
+import { useSelector } from 'react-redux';
 import { productSelectors } from 'redux/products/productSelectors';
 
 import { selectIsLoggedIn, userSelector } from 'redux/auth/auth-selectors';
@@ -23,18 +22,10 @@ const DailyCalorieIntake = ({ onClose }) => {
   const dataApi = useSelector(productSelectors.selectDataDiet);
   const notRecProductsUser = useSelector(userSelector.selectUserNotRecProducts);
   const userDailyCalorie = useSelector(userSelector.selectUserDailyCalorie);
-  // const dataApiUser = useSelector(selectUserNotRecProducts);
 
   const { notRecProducts, dailyCalorie } = !isLoggedIn
     ? dataApi
     : { notRecProducts: notRecProductsUser, dailyCalorie: userDailyCalorie };
-
-  // const dispatch = useDispatch();
-
-  // const onBtnClick = () => {
-  //   dispatch(toggleModal(false));
-  //   dispatch(clearState());
-  // };
 
   const mds = window.matchMedia('(min-width: 768px)');
 
@@ -61,9 +52,11 @@ const DailyCalorieIntake = ({ onClose }) => {
           ))}
         </List>
       </BoxList>
-      <Link to={!isLoggedIn && '/registration'} onClick={onClose}>
-        Start losing weight
-      </Link>
+      <ButtonContainer>
+        <Link to={!isLoggedIn && '/registration'} onClick={onClose}>
+          Start losing weight
+        </Link>
+      </ButtonContainer>
     </Box>
   );
 };
