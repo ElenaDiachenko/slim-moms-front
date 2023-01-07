@@ -1,15 +1,15 @@
 import { Routes, Route } from 'react-router-dom';
-import { lazy, useEffect, useState } from 'react';
+import { lazy, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 // import { lazy, Suspense, useEffect } from 'react';
 import { ToastContainer } from 'react-toastify';
 import { SharedLayout } from './components/SharedLayout';
-import Modal from './components/Modal';
+// import Modal from './components/Modal';
 // import Loader from 'components/Loader/Loader';
 
 import PrivateRoute from 'routes/PrivatRoutes';
 import PublicRoute from 'routes/PublicRoutes';
-import ErrorRoute from 'routes/ErrorRoutes';
+// import ErrorRoute from 'routes/ErrorRoutes';
 
 import { Global } from '@emotion/react';
 import { GlobalStyles } from 'components/GlobalStyles';
@@ -32,6 +32,7 @@ const MainPage = lazy(() => import('./pages/MainPage/index'));
 const NotFound = lazy(() => import('./pages/NotFound/index'));
 const ModalPage = lazy(() => import('./pages/ModalPage/index'));
 const AddProduct = lazy(() => import('./pages/AddProduct/index'));
+const Google = lazy(() => import('./pages/Google/index'));
 
 export const App = () => {
   const dispatch = useDispatch();
@@ -96,6 +97,14 @@ export const App = () => {
                 <PrivateRoute>
                   <Diary />
                 </PrivateRoute>
+              }
+            />
+            <Route
+              path="/google-redirect"
+              element={
+                <PublicRoute redirectTo="/diary" restricted>
+                  <Google />
+                </PublicRoute>
               }
             />
             <Route

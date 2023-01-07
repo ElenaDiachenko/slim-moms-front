@@ -47,7 +47,7 @@ export const DailyCaloriesForm = () => {
         age: user.age,
         curWeight: user.curWeight,
         desWeight: user.desWeight,
-        bloodType: user.bloodType.toString(),
+        bloodType: user.bloodType,
       }
     : {
         height: '',

@@ -48,6 +48,12 @@ const authSlice = createSlice({
     setUserData(state, { payload }) {
       state.userData = payload;
     },
+    setGoogleData(state, { payload }) {
+      state.user.name = payload.name;
+      state.user.email = payload.email;
+      state.token = payload.token;
+      state.isLoggedIn = true;
+    },
   },
   extraReducers: builder =>
     builder
@@ -106,5 +112,5 @@ const authSlice = createSlice({
       .addMatcher(isAnyOf(rejectedActions), anyCases.handleAnyRejected),
 });
 
-export const { setUserData } = authSlice.actions;
+export const { setUserData, setGoogleData } = authSlice.actions;
 export default authSlice.reducer;

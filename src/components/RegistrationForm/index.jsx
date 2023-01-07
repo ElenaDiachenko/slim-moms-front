@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Formik, ErrorMessage } from 'formik';
 import { register } from 'redux/auth/auth-operations';
-
 import * as yup from 'yup';
 import { ButtonAuth, ButtonLinkAuth } from 'components/Button';
 import { Link } from 'react-router-dom';
@@ -16,6 +15,7 @@ import {
   FormReg,
   Wrap,
   MessageErr,
+  GoogleButton,
 } from './RegistrationForm.styled';
 import { ShowPasswordButton } from 'components/Button/ShowPasswordButton';
 
@@ -103,6 +103,9 @@ export const RegistrationForm = () => {
               <Link to="/login">
                 <ButtonLinkAuth text="Log in" />
               </Link>
+              <GoogleButton href={`http://localhost:5001/api/auth/google`}>
+                Google auth
+              </GoogleButton>
             </ButtonsContainer>
           </FormReg>
         </Wrap>
