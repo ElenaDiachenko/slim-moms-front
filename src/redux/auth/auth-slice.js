@@ -9,9 +9,10 @@ import {
   logOut,
   register,
   logIn,
-  fetchCurrentUser,
+  // fetchCurrentUser,
   updateUser,
   getUser,
+  checkAuth,
 } from './auth-operations';
 import { anyCases } from '../utils';
 
@@ -35,7 +36,7 @@ const initialState = {
   isRefreshing: false,
 };
 
-const actions = [logOut, register, logIn, updateUser, getUser];
+const actions = [logOut, register, logIn, updateUser, getUser, checkAuth];
 
 const pendingActions = isPending(...actions);
 const fulfilledActions = isFulfilled(...actions);
@@ -58,10 +59,7 @@ const authSlice = createSlice({
   extraReducers: builder =>
     builder
       .addCase(register.fulfilled, (state, { payload }) => {
-        // const { result, caloricityPerDay, dateFirstAdded } = payload.data;
-        state.user.name = payload.user.name;
-        state.user.email = payload.user.email;
-        // state.bloodType = null
+        state.user = payload.user;
         state.token = payload.token;
         state.isLoggedIn = true;
         state.isLoading = false;
@@ -74,28 +72,42 @@ const authSlice = createSlice({
         state.isLoading = false;
       })
       .addCase(logOut.fulfilled, (state, { payload }) => {
-        state.user = initialState.user;
-        state.userData = null;
+        state = initialState;
+        // state.user = initialState.user;
+        // state.userData = null;
 
-        // state.bloodType = null
-        state.token = null;
-        state.isLoggedIn = false;
-        state.isLoading = false;
+        // // state.bloodType = null
+        // state.token = null;
+        // state.isLoggedIn = false;
+        // state.isLoading = false;
       })
       .addCase(getUser.fulfilled, (state, { payload }) => {
         state.user = payload.data.user;
       })
-      .addCase(fetchCurrentUser.pending, state => {
+      .addCase(checkAuth.pending, state => {
         state.isRefreshing = true;
       })
-      .addCase(fetchCurrentUser.fulfilled, (state, { payload }) => {
-        state.user = payload.data.user;
+      .addCase(checkAuth.fulfilled, (state, { payload }) => {
+        state.token = payload.token;
+        state.isLoggedIn = true;
+        state.user = payload.user;
         state.isLoggedIn = true;
         state.isRefreshing = false;
       })
-      .addCase(fetchCurrentUser.rejected, state => {
+      .addCase(checkAuth.rejected, state => {
         state.isRefreshing = false;
       })
+      // .addCase(fetchCurrentUser.pending, state => {
+      //   state.isRefreshing = true;
+      // })
+      // .addCase(fetchCurrentUser.fulfilled, (state, { payload }) => {
+      //   state.user = payload.data.user;
+      //   state.isLoggedIn = true;
+      //   state.isRefreshing = false;
+      // })
+      // .addCase(fetchCurrentUser.rejected, state => {
+      //   state.isRefreshing = false;
+      // })
       .addCase(updateUser.pending, state => {
         state.isUpdate = false;
       })
