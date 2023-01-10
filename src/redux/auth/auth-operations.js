@@ -39,7 +39,28 @@ export const logIn = createAsyncThunk(
     }
   }
 );
+export const refreshToken = createAsyncThunk(
+  'auth/refreshToken',
+  async (_, thunkAPI) => {
+    // const state = thunkAPI.getState();
+    // console.log(state)
+    // const persistedToken = state.auth.token;
 
+    // if (persistedToken === null) {
+    //   return thunkAPI.rejectWithValue();
+    // }
+    // token.set(persistedToken);
+    try {
+      const { data } = await API.get('auth/refresh');
+      token.set(data.token);
+      console.log(data);
+      return data;
+    } catch (error) {
+      console.log(error);
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
 export const updateUser = createAsyncThunk(
   'user/updateUser',
   async (credentials, thunkAPI) => {
@@ -73,6 +94,7 @@ export const fetchCurrentUser = createAsyncThunk(
     token.set(persistedToken);
     try {
       const { data } = await API.get('users/current');
+
       return data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);

@@ -36,18 +36,18 @@ const Google = lazy(() => import('./pages/Google/index'));
 
 export const App = () => {
   const dispatch = useDispatch();
-  const { isRefreshing, isUpdate, isLoggedIn } = useAuth();
+  const { isRefreshing, isLoggedIn } = useAuth();
   const userSavedData = useSelector(userSelector.selectUserSavedData);
 
   useEffect(() => {
     if (!isLoggedIn) return;
     (async () => {
-      if (!isUpdate && userSavedData) {
+      if (userSavedData) {
         await dispatch(updateUser(userSavedData));
       }
       await dispatch(getUser());
     })();
-  }, [dispatch, isUpdate, userSavedData, isLoggedIn]);
+  }, [dispatch, userSavedData, isLoggedIn]);
 
   useEffect(() => {
     dispatch(fetchCurrentUser());

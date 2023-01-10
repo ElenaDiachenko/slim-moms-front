@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Formik, ErrorMessage } from 'formik';
 import { register } from 'redux/auth/auth-operations';
 import * as yup from 'yup';
 import { ButtonAuth, ButtonLinkAuth } from 'components/Button';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import {
   Title,
   FormList,
@@ -18,6 +18,7 @@ import {
   GoogleButton,
 } from './RegistrationForm.styled';
 import { ShowPasswordButton } from 'components/Button/ShowPasswordButton';
+import { userSelector } from 'redux/auth/auth-selectors';
 
 const FormError = ({ name }) => {
   return (
@@ -52,12 +53,15 @@ const initialValues = {
 };
 
 export const RegistrationForm = () => {
+  const userSavedData = useSelector(userSelector.selectUserSavedData);
   const [showPassword, setShow] = useState(false);
   const handleClick = () => setShow(!showPassword);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleSubmit = ({ name, email, password }, { resetForm }) => {
     dispatch(register({ name, email, password }));
+    userSavedData ? navigate('/diary') : navigate('/calculator');
     resetForm();
   };
 

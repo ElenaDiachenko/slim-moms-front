@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { store, persistor } from './redux/store';
 import { App } from './App';
+import setupInterceptors from './servises/setupInterceptors';
 
 import { ThemeProvider } from '@emotion/react';
 import { theme } from './components/Theme';
@@ -22,3 +23,4 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     </ThemeProvider>
   </React.StrictMode>
 );
+setupInterceptors(store);
