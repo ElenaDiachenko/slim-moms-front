@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
 import { setGoogleData } from 'redux/auth/auth-slice';
-import { fetchCurrentUser, updateUser } from 'redux/auth/auth-operations';
+import { checkAuth, updateUser } from 'redux/auth/auth-operations';
 import { userSelector } from 'redux/auth/auth-selectors';
 
 const Google = () => {
@@ -14,7 +14,7 @@ const Google = () => {
     if (!params) return;
     (async () => {
       await dispatch(setGoogleData(params));
-      await dispatch(fetchCurrentUser());
+      await dispatch(checkAuth());
       if (userSavedData) {
         await dispatch(updateUser(userSavedData));
       }

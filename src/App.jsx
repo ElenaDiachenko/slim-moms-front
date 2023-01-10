@@ -15,9 +15,10 @@ import { Global } from '@emotion/react';
 import { GlobalStyles } from 'components/GlobalStyles';
 import { useAuth } from 'hooks/useAuth';
 import {
-  fetchCurrentUser,
-  updateUser,
-  getUser,
+  // fetchCurrentUser,
+  // updateUser,
+  // getUser,
+  checkAuth,
 } from 'redux/auth/auth-operations';
 import Loader from 'components/Loader/Loader';
 //Add lazy
@@ -40,34 +41,28 @@ export const App = () => {
   const userSavedData = useSelector(userSelector.selectUserSavedData);
 
   useEffect(() => {
-    if (!isLoggedIn) return;
-    (async () => {
-      if (!isUpdate && userSavedData) {
-        await dispatch(updateUser(userSavedData));
-      }
-      await dispatch(getUser());
-    })();
-  }, [dispatch, isUpdate, userSavedData, isLoggedIn]);
-
-  useEffect(() => {
-    dispatch(fetchCurrentUser());
+    if (localStorage.getItem('token_moms')) {
+      dispatch(checkAuth());
+    }
   }, [dispatch]);
 
-  // const showModal = useSelector(bloodSelectors.selectShowModal);
+  // useEffect(() => {
+  //   if (!isLoggedIn) return;
+  //   (async () => {
+  //     if (!isUpdate && userSavedData) {
+  //       await dispatch(updateUser(userSavedData));
+  //     }
+  //     await dispatch(getUser());
+  //   })();
+  // }, [dispatch, isUpdate, userSavedData, isLoggedIn]);
 
   // useEffect(() => {
-  //   if (showModal) {
-  //     document.body.style.overflow = 'hidden';
-  //   }
-  //   return () => {
-  //     document.body.style.overflow = 'visible';
-  //   };
-  // }, [showModal]);
+  //   dispatch(fetchCurrentUser());
+  // }, [dispatch]);
 
   return (
     <>
       <Global styles={GlobalStyles} />
-      {/* {showModal && <Modal />} */}
       {isRefreshing ? (
         <Loader />
       ) : (
