@@ -1,16 +1,11 @@
 import { Routes, Route } from 'react-router-dom';
 import { lazy, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-// import { lazy, Suspense, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
 import { SharedLayout } from './components/SharedLayout';
-// import Modal from './components/Modal';
-// import Loader from 'components/Loader/Loader';
 
 import PrivateRoute from 'routes/PrivatRoutes';
 import PublicRoute from 'routes/PublicRoutes';
-// import ErrorRoute from 'routes/ErrorRoutes';
-
 import { Global } from '@emotion/react';
 import { GlobalStyles } from 'components/GlobalStyles';
 import { useAuth } from 'hooks/useAuth';
@@ -21,8 +16,6 @@ import {
   checkAuth,
 } from 'redux/auth/auth-operations';
 import Loader from 'components/Loader/Loader';
-//Add lazy
-import { userSelector } from 'redux/auth/auth-selectors';
 
 const RegistrationPage = lazy(() => import('./pages/RegistrationPage/index'));
 const Login = lazy(() => import('./pages/Login/index'));
@@ -38,27 +31,12 @@ const Google = lazy(() => import('./pages/Google/index'));
 export const App = () => {
   const dispatch = useDispatch();
   const { isRefreshing } = useAuth();
-  // const userSavedData = useSelector(userSelector.selectUserSavedData);
 
   useEffect(() => {
     if (localStorage.getItem('token_moms')) {
       dispatch(checkAuth());
     }
   }, [dispatch]);
-
-  // useEffect(() => {
-  //   if (!isLoggedIn) return;
-  //   (async () => {
-  //     if (!isUpdate && userSavedData) {
-  //       await dispatch(updateUser(userSavedData));
-  //     }
-  //     await dispatch(getUser());
-  //   })();
-  // }, [dispatch, isUpdate, userSavedData, isLoggedIn]);
-
-  // useEffect(() => {
-  //   dispatch(fetchCurrentUser());
-  // }, [dispatch]);
 
   return (
     <>
