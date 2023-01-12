@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Formik, ErrorMessage } from 'formik';
 import { register } from 'redux/auth/auth-operations';
-import * as yup from 'yup';
+import { RegisterSchema } from 'utils/schemas/RegisterSchema';
 import { ButtonAuth, ButtonLinkAuth } from 'components/Button';
 import { Link } from 'react-router-dom';
 import {
@@ -18,6 +18,7 @@ import {
   GoogleButton,
 } from './RegistrationForm.styled';
 import { ShowPasswordButton } from 'components/Button/ShowPasswordButton';
+import { userSelector } from 'redux/auth/auth-selectors';
 
 const FormError = ({ name }) => {
   return (
@@ -28,23 +29,6 @@ const FormError = ({ name }) => {
   );
 };
 
-const schema = yup.object().shape({
-  name: yup
-    .string()
-    .min(3, 'Name must be at least 3 characters')
-    .max(15, 'Name must be at most 8 characters')
-    .required('Name is a required field'),
-  email: yup
-    .string()
-    .email('Please enter a valid email')
-    .required('Email is a required field'),
-  password: yup
-    .string()
-    .min(8, 'Password must be at least 8 characters')
-    .max(100, 'Password must be at most 100 characters')
-    .required('Password is a required field'),
-});
-
 const initialValues = {
   name: '',
   email: '',
@@ -52,12 +36,16 @@ const initialValues = {
 };
 
 export const RegistrationForm = () => {
+  const userSavedData = useSelector(userSelector.selectUserSavedData);
+
   const [showPassword, setShow] = useState(false);
   const handleClick = () => setShow(!showPassword);
   const dispatch = useDispatch();
 
-  const handleSubmit = ({ name, email, password }, { resetForm }) => {
-    dispatch(register({ name, email, password }));
+  const handleSubmit = async ({ name, email, password }, { resetForm }) => {
+    userSavedData
+      ? await dispatch(register({ ...userSavedData, name, email, password }))
+      : await dispatch(register({ name, email, password }));
     resetForm();
   };
 
@@ -66,7 +54,7 @@ export const RegistrationForm = () => {
       <Formik
         initialValues={initialValues}
         onSubmit={handleSubmit}
-        validationSchema={schema}
+        validationSchema={RegisterSchema}
       >
         <Wrap>
           <Title>Register</Title>

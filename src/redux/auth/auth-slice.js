@@ -103,12 +103,12 @@ const authSlice = createSlice({
       // .addCase(fetchCurrentUser.rejected, state => {
       //   state.isRefreshing = false;
       // })
-     
+
       .addCase(updateUser.fulfilled, (state, { payload }) => {
         state.user = { ...state.user, ...payload.data.user };
         state.userData = null;
       })
-           .addMatcher(isAnyOf(fulfilledActions), anyCases.handleAnyFulfield)
+      .addMatcher(isAnyOf(fulfilledActions), anyCases.handleAnyFulfield)
       .addMatcher(isAnyOf(pendingActions), anyCases.handleAnyPending)
       .addMatcher(isAnyOf(rejectedActions), anyCases.handleAnyRejected),
 });
