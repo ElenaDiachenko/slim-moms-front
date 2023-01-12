@@ -43,11 +43,11 @@ export const DailyCaloriesForm = () => {
   const isLoggedIn = useSelector(selectIsLoggedIn);
   const initialValues = isLoggedIn
     ? {
-        height: user.height,
-        age: user.age,
-        curWeight: user.curWeight,
-        desWeight: user.desWeight,
-        bloodType: user.bloodType,
+        height: user.height ?? '',
+        age: user.age ?? '',
+        curWeight: user.curWeight ?? '',
+        desWeight: user.desWeight ?? '',
+        bloodType: user.bloodType ?? '',
       }
     : {
         height: '',

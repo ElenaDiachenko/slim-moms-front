@@ -31,7 +31,8 @@ $api.interceptors.response.use(
         localStorage.setItem('token_moms', response.data.token);
         return $api.request(originalRequest);
       } catch (e) {
-        console.log(e);
+        // localStorage.removeItem('token_moms');
+        // localStorage.removeItem('persist:auth');
       }
     }
     throw error;

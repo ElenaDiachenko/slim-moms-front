@@ -31,7 +31,6 @@ const initialState = {
   },
   token: null,
   isLoading: false,
-  isUpdate: false,
   isLoggedIn: false,
   isRefreshing: false,
 };
@@ -67,19 +66,15 @@ const authSlice = createSlice({
       .addCase(logIn.fulfilled, (state, { payload }) => {
         state.user = payload.user;
         state.token = payload.token;
-        // state.bloodType = action.payload.data
         state.isLoggedIn = true;
         state.isLoading = false;
       })
       .addCase(logOut.fulfilled, (state, { payload }) => {
-        state = initialState;
-        // state.user = initialState.user;
-        // state.userData = null;
-
-        // // state.bloodType = null
-        // state.token = null;
-        // state.isLoggedIn = false;
-        // state.isLoading = false;
+        state.user = initialState.user;
+        state.userData = null;
+        state.token = null;
+        state.isLoggedIn = false;
+        state.isLoading = false;
       })
       .addCase(getUser.fulfilled, (state, { payload }) => {
         state.user = payload.data.user;
@@ -108,18 +103,12 @@ const authSlice = createSlice({
       // .addCase(fetchCurrentUser.rejected, state => {
       //   state.isRefreshing = false;
       // })
-      .addCase(updateUser.pending, state => {
-        state.isUpdate = false;
-      })
+     
       .addCase(updateUser.fulfilled, (state, { payload }) => {
         state.user = { ...state.user, ...payload.data.user };
-        state.isUpdate = true;
         state.userData = null;
       })
-      .addCase(updateUser.rejected, state => {
-        state.isUpdate = false;
-      })
-      .addMatcher(isAnyOf(fulfilledActions), anyCases.handleAnyFulfield)
+           .addMatcher(isAnyOf(fulfilledActions), anyCases.handleAnyFulfield)
       .addMatcher(isAnyOf(pendingActions), anyCases.handleAnyPending)
       .addMatcher(isAnyOf(rejectedActions), anyCases.handleAnyRejected),
 });

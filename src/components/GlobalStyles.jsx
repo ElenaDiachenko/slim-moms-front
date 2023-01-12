@@ -7,7 +7,6 @@ export const GlobalStyles = css`
     width: 100vw;
     overflow-x: hidden;
   }
-
   @font-face {
     font-family: Verdana;
     src: url('../fonts/verdana-font-family/Verdana.ttf'), format('truetype');
@@ -34,7 +33,12 @@ export const GlobalStyles = css`
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
       monospace;
   }
-
+  #root {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
   h1,
   h2,
   h3,

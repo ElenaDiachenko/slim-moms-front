@@ -4,8 +4,7 @@ export const DailyCaloriesContainer = styled.div`
   height: 100%;
   @media screen and (max-width: 767px) {
     width: 320px;
-    padding: 0 20px;
-    margin: 0 auto;
+    margin: 0 auto 30px;
   }
   @media screen and (min-width: 768px) {
     width: 768px;
@@ -13,7 +12,7 @@ export const DailyCaloriesContainer = styled.div`
   }
   @media screen and (min-width: 1280px) {
     width: 1280px;
-    padding: 0 16px;
+    padding: 0 16px 16px;
   }
 `;
 export const DailyCaloriesFormContainer = styled.div`

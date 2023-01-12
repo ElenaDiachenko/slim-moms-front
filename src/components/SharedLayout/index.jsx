@@ -3,11 +3,11 @@ import { Suspense } from 'react';
 import { Header } from 'components/Header';
 // import { Box } from '../Box';
 import Loader from 'components/Loader/Loader';
-import { GlobalContainerStyled } from './GlobalContainer.styled';
+import { GlobalContainerStyled, Wrapper } from './GlobalContainer.styled';
 
 export const SharedLayout = () => {
   return (
-    <>
+    <Wrapper>
       <Header />
 
       <Suspense fallback={<Loader />}>
@@ -15,6 +15,6 @@ export const SharedLayout = () => {
           <Outlet />
         </GlobalContainerStyled>
       </Suspense>
-    </>
+    </Wrapper>
   );
 };
