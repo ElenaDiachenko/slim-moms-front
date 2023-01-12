@@ -37,8 +37,8 @@ const Google = lazy(() => import('./pages/Google/index'));
 
 export const App = () => {
   const dispatch = useDispatch();
-  const { isRefreshing, isUpdate, isLoggedIn } = useAuth();
-  const userSavedData = useSelector(userSelector.selectUserSavedData);
+  const { isRefreshing } = useAuth();
+  // const userSavedData = useSelector(userSelector.selectUserSavedData);
 
   useEffect(() => {
     if (localStorage.getItem('token_moms')) {

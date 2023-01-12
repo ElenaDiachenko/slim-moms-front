@@ -59,7 +59,6 @@ export const UserInfo = () => {
   const location = useLocation();
 
   const { user } = useAuth();
-  console.log(user.name);
 
   const isLogout = () => {
     dispatch(logOut());

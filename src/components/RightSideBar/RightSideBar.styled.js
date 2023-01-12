@@ -14,12 +14,13 @@ export const Box = styled.div`
   @media screen and (min-width: 768px) {
     width: 768px;
     margin-left: -32px;
+    margin-top: 16px;
     flex-direction: row;
     padding: 80px 32px 40px 32px;
   }
   @media screen and (min-width: 1280px) {
     width: 517 px;
-    min-height: 100vh;
+    min-height: 100%;
     flex-direction: column;
     margin-top: -168px;
     padding: 292px 123px 0 106px;
@@ -53,7 +54,7 @@ export const ListTitle = styled.p`
   margin-bottom: 30px;
 `;
 
-export const List = styled('ul')`
+export const List = styled.ul`
   list-style: none;
   display: flex;
   flex-direction: column;

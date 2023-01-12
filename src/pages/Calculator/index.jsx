@@ -12,7 +12,6 @@ const Calculator = () => {
         <DailyCaloriesForm />
         <RightSideBar />
       </CalculatorStyledPage>
-      {/* </BarBackground> */}
     </>
   );
 };

@@ -33,7 +33,7 @@ const diarySlice = createSlice({
     builder
       .addCase(getByDate.fulfilled, (state, { payload }) => {
         const { result, caloricityPerDay, dateFirstAdded } = payload.data;
-        state.products = [...result].reverse();
+        state.products = result.reverse();
         state.caloricityPerDay = caloricityPerDay;
         state.dateFirstAdded = dateFirstAdded;
       })
@@ -45,7 +45,14 @@ const diarySlice = createSlice({
       })
       .addCase(addProduct.fulfilled, (state, { payload }) => {
         const { result } = payload.data;
-        state.products = [result, ...state.products];
+
+        const idx = state.products.findIndex(item => item._id === result._id);
+        if (idx !== -1) {
+          state.products.splice(idx, 1, result);
+        } else {
+          state.products = [result, ...state.products];
+        }
+
         state.caloricityPerDay =
           Number(state.caloricityPerDay) + Number(result.calories);
       })
