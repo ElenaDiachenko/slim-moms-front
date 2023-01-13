@@ -1,5 +1,5 @@
-import { useSelector } from 'react-redux';
-import Loader from 'components/Loader/Loader';
+// import { useSelector } from 'react-redux';
+// import Loader from 'components/Loader/Loader';
 import { DailyCaloriesForm } from 'components/DailyCaloriesForm';
 import { MainBackground } from 'components/MainBackground';
 
