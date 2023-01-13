@@ -8,9 +8,7 @@ export const register = createAsyncThunk(
   async (credentials, thunkAPI) => {
     try {
       const { data } = await $api.post('auth/register', credentials);
-      // token.set(data.token);
       localStorage.setItem('token_moms', data.token);
-      console.log(data);
       return data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
@@ -21,7 +19,6 @@ export const register = createAsyncThunk(
 export const logOut = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
   try {
     await $api.get('auth/logout');
-    // token.unset();
     localStorage.removeItem('token_moms');
     localStorage.removeItem('persist:auth');
   } catch (error) {
@@ -34,7 +31,6 @@ export const logIn = createAsyncThunk(
   async (credentials, thunkAPI) => {
     try {
       const { data } = await $api.post('auth/login', credentials);
-      // token.set(data.token);
       localStorage.setItem('token_moms', data.token);
       return data;
     } catch (error) {
@@ -55,14 +51,6 @@ export const updateUser = createAsyncThunk(
     }
   }
 );
-export const getUser = createAsyncThunk('auth/getUser', async (_, thunkAPI) => {
-  try {
-    const { data } = await $api.get('users/current');
-    return data;
-  } catch (error) {
-    return thunkAPI.rejectWithValue(error.message);
-  }
-});
 
 export const checkAuth = createAsyncThunk(
   'auth/refreshToken',

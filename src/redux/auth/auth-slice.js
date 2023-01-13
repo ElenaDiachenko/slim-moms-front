@@ -9,9 +9,7 @@ import {
   logOut,
   register,
   logIn,
-  // fetchCurrentUser,
   updateUser,
-  getUser,
   checkAuth,
 } from './auth-operations';
 import { anyCases } from '../utils';
@@ -35,7 +33,7 @@ const initialState = {
   isRefreshing: false,
 };
 
-const actions = [logOut, register, logIn, updateUser, getUser, checkAuth];
+const actions = [logOut, register, logIn, updateUser, checkAuth];
 
 const pendingActions = isPending(...actions);
 const fulfilledActions = isFulfilled(...actions);
@@ -76,9 +74,6 @@ const authSlice = createSlice({
         state.isLoggedIn = false;
         state.isLoading = false;
       })
-      .addCase(getUser.fulfilled, (state, { payload }) => {
-        state.user = payload.data.user;
-      })
       .addCase(checkAuth.pending, state => {
         state.isRefreshing = true;
       })
@@ -92,18 +87,6 @@ const authSlice = createSlice({
       .addCase(checkAuth.rejected, state => {
         state.isRefreshing = false;
       })
-      // .addCase(fetchCurrentUser.pending, state => {
-      //   state.isRefreshing = true;
-      // })
-      // .addCase(fetchCurrentUser.fulfilled, (state, { payload }) => {
-      //   state.user = payload.data.user;
-      //   state.isLoggedIn = true;
-      //   state.isRefreshing = false;
-      // })
-      // .addCase(fetchCurrentUser.rejected, state => {
-      //   state.isRefreshing = false;
-      // })
-
       .addCase(updateUser.fulfilled, (state, { payload }) => {
         state.user = { ...state.user, ...payload.data.user };
         state.userData = null;
