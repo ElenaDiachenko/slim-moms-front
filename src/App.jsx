@@ -10,9 +10,6 @@ import { Global } from '@emotion/react';
 import { GlobalStyles } from 'components/GlobalStyles';
 import { useAuth } from 'hooks/useAuth';
 import {
-  // fetchCurrentUser,
-  // updateUser,
-  // getUser,
   checkAuth,
 } from 'redux/auth/auth-operations';
 import Loader from 'components/Loader/Loader';
