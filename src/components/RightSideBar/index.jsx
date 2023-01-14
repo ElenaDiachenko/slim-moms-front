@@ -56,7 +56,7 @@ export const RightSideBar = () => {
           <ContainerItem>
             <Title>% of normal</Title>
             <Content>
-              {caloricityPerDay > 0 ? Math.round(percentOfNormal) : 0} %
+              {caloricityPerDay > 0 && dailyCalorie > 0? Math.round(percentOfNormal) : 0} %
             </Content>
           </ContainerItem>
         </Container>

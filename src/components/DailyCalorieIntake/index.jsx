@@ -53,7 +53,7 @@ const DailyCalorieIntake = ({ onClose }) => {
         </List>
       </BoxList>
       <ButtonContainer>
-        <Link to={!isLoggedIn && '/registration'} onClick={onClose}>
+        <Link to={!isLoggedIn ? '/registration':'/diary'} onClick={onClose}>
           Start losing weight
         </Link>
       </ButtonContainer>

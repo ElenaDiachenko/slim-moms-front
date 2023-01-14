@@ -5,11 +5,12 @@ import {
   isPending,
   isRejected,
 } from '@reduxjs/toolkit';
+import moment from 'moment';
 import { getByDate, addProduct, removeProduct } from './diaryOperations';
 import { anyCases } from '../utils';
 
 const initialState = {
-  selectedDate: '',
+  selectedDate: moment(new Date()).format('YYYY-MM-DD'),
   caloricityPerDay: null,
   products: [],
   isLoading: false,

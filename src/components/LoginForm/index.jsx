@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Formik, ErrorMessage } from 'formik';
 import * as yup from 'yup';
-import { FormLogIn, Input, Label, ErrorText } from './LoginForm.styled';
-// import { logIn } from 'redux/login/operations';
+import { FormLogIn, Input, Label, ErrorText ,GoogleButton} from './LoginForm.styled';
 import { logIn } from 'redux/auth/auth-operations';
 import { ButtonAuth, ButtonLinkAuth } from 'components/Button';
 import { Link } from 'react-router-dom';
@@ -42,12 +41,9 @@ export const FormLogin = () => {
   const dispatch = useDispatch();
 
   const handleSubmit = ({ email, password }, { resetForm }) => {
-    // const bloodType = JSON.parse(localStorage.getItem('bloodType'));
     dispatch(logIn({ email, password }));
-    // dispatch(logIn({ email, password, bloodType }));
 
     resetForm();
-    // localStorage.setItem('bloodType', JSON.stringify(''));
   };
 
   return (
@@ -92,6 +88,9 @@ export const FormLogin = () => {
             <Link to="/registration">
               <ButtonLinkAuth text="Register"></ButtonLinkAuth>
             </Link>
+             <GoogleButton href={`http://localhost:5001/api/auth/google`}>
+                Google auth
+              </GoogleButton>
           </Box>
         </FormLogIn>
       </Formik>
