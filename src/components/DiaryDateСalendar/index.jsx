@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import 'react-datetime/css/react-datetime.css';
 import 'react-toastify/dist/ReactToastify.css';
@@ -23,14 +23,6 @@ export const DiaryDateCalendar = () => {
   const first = moment(new Date(dateFirstAdded));
   const current = moment(new Date());
 
-  const normalizeDate = date => {
-    return `${date.format('YYYY.MM.DD')}Z`;
-  };
-
-  useEffect(() => {
-    dispatch(setDate(normalizeDate(value)));
-  }, [value, dispatch]);
-
   const onChange = newValue => {
     setIsOpen(false);
 
@@ -40,6 +32,7 @@ export const DiaryDateCalendar = () => {
       return;
     }
     setValue(newValue);
+    dispatch(setDate(newValue.format('YYYY-MM-DD')));
   };
 
   return (

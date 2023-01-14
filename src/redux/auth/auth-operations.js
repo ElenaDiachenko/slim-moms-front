@@ -53,13 +53,12 @@ export const updateUser = createAsyncThunk(
 );
 
 export const checkAuth = createAsyncThunk(
-  'auth/refreshToken',
+  'auth/refresh',
   async (_, thunkAPI) => {
     try {
       const { data } = await axios.get(`${API_URL}auth/refresh`, {
         withCredentials: true,
       });
-      console.log(data);
       localStorage.setItem('token_moms', data.token);
       return data;
     } catch (error) {

@@ -18,19 +18,16 @@ import {
 } from './Diary.styled';
 import { useWindowResize } from 'hooks/useWindowResize';
 import { BarBackground } from 'components/BarBackground';
-import { useAuth } from 'hooks/useAuth';
 
 const Diary = () => {
   const date = useSelector(diarySelectors.selectDate);
   const dispatch = useDispatch();
-  const { isLoggedIn } = useAuth();
 
   const { width } = useWindowResize();
+  
   useEffect(() => {
-    if (date && isLoggedIn) {
       dispatch(getByDate(date));
-    }
-  }, [date, dispatch, isLoggedIn]);
+  }, [ date,dispatch]);
 
   return (
     <>
@@ -56,7 +53,6 @@ const Diary = () => {
         </DiaryStyled>
         <RightSideBar />
       </DiaryStyledPage>
-      {/* </BarBackground> */}
     </>
   );
 };

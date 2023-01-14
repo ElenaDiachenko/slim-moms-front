@@ -227,7 +227,7 @@ export const UserNavLink = styled(Link)`
     font-size: 14px;
     line-height: 17px;
     padding: 10px 9px;
-    &:first-child {
+    &:first-of-type {
       padding-left: 20px;
       border-left: 2px solid #e0e0e0;
     }

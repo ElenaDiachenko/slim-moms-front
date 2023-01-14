@@ -34,10 +34,13 @@ export const GlobalStyles = css`
       monospace;
   }
   #root {
-    flex-grow: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    // flex-grow: 1;
+    // display: flex;
+    // justify-content: center;
+    // align-items: center;
+     min-height: 100vh;
+  display: flex;
+  flex-flow: column nowrap;
   }
   h1,
   h2,
