@@ -13,6 +13,10 @@ import sprite from 'images/icons.svg';
 import { setDate } from 'redux/diary/diarySlice';
 import { creatNotifyError } from 'helpers/createNotify';
 
+  export const normalizeDate = date => {
+    return `${date.format('YYYY.MM.DD')}Z`;
+  };
+
 export const DiaryDateCalendar = () => {
   const dispatch = useDispatch();
 
@@ -23,6 +27,12 @@ export const DiaryDateCalendar = () => {
   const first = moment(new Date(dateFirstAdded));
   const current = moment(new Date());
 
+
+
+  // useEffect(() => {
+  //   dispatch(setDate(normalizeDate(value)));
+  // }, [value, dispatch]);
+
   const onChange = newValue => {
     setIsOpen(false);
 
@@ -32,7 +42,7 @@ export const DiaryDateCalendar = () => {
       return;
     }
     setValue(newValue);
-    dispatch(setDate(newValue.format('YYYY-MM-DD')));
+    dispatch(setDate(normalizeDate(newValue)));
   };
 
   return (

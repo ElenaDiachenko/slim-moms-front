@@ -6,11 +6,12 @@ import {
   isRejected,
 } from '@reduxjs/toolkit';
 import moment from 'moment';
+import {normalizeDate} from 'components/DiaryDateСalendar'
 import { getByDate, addProduct, removeProduct } from './diaryOperations';
 import { anyCases } from '../utils';
 
 const initialState = {
-  selectedDate: moment(new Date()).format('YYYY-MM-DD'),
+  selectedDate: normalizeDate(moment(new Date())),
   caloricityPerDay: null,
   products: [],
   isLoading: false,
