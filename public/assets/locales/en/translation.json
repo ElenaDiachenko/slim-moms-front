@@ -25,7 +25,7 @@
   "ProductForm": {
     "label_1": "Enter product name",
     "label_2": "Grams",
-    "not_found": "Product not found",
+    "not_found": "Product not selected",
      "not_found_for_date": "Not found products for this date",
     "validate": "This field is required!"
   },

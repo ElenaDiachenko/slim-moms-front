@@ -27,7 +27,7 @@ import Modal from 'components/Modal';
 import { useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 import { selectIsLoggedIn } from 'redux/auth/auth-selectors';
-import {useCalculatorSchema} from '../../utils/schemas/CalculatorSchema';
+import calculatorSchema from 'utils/schemas/CalculatorSchema'
 import { userSelector } from 'redux/auth/auth-selectors';
 import { setUserData } from 'redux/auth/auth-slice';
 import { getDiet } from 'redux/products/products-operations';
@@ -58,7 +58,6 @@ export const DailyCaloriesForm = () => {
         bloodType: '1',
       };
   const { t } = useTranslation();
-const calculatorSchema = useCalculatorSchema()
   const dispatch = useDispatch();
 
   const mds = window.matchMedia('(min-width: 768px)');
@@ -110,7 +109,7 @@ const calculatorSchema = useCalculatorSchema()
                   <InputLabel htmlFor="height">{t("dailyCalorieForm.label_1")}</InputLabel>
                   {errors.height && touched.height ? (
                     <ErrorMessageContainer>
-                      {errors.height}
+                      {t(errors.height)}
                     </ErrorMessageContainer>
                   ) : null}
                 </InputContainer>
@@ -123,7 +122,7 @@ const calculatorSchema = useCalculatorSchema()
                   <InputLabel>{t("dailyCalorieForm.label_4")}</InputLabel>
                   {errors.desWeight && touched.desWeight ? (
                     <ErrorMessageContainer>
-                      {errors.desWeight}
+                      {t(errors.desWeight)}
                     </ErrorMessageContainer>
                   ) : null}
                 </FieldStyledTab>
@@ -131,7 +130,9 @@ const calculatorSchema = useCalculatorSchema()
                   <FieldStyled name="age" type="number" autoComplete="off" />
                   <InputLabel>{t("dailyCalorieForm.label_2")}</InputLabel>
                   {errors.age && touched.age ? (
-                    <ErrorMessageContainer>{errors.age}</ErrorMessageContainer>
+                    <ErrorMessageContainer>
+                      {t(errors.age)}
+                    </ErrorMessageContainer>
                   ) : null}
                 </InputContainer>
                 <FieldStyledMobil>
@@ -144,7 +145,7 @@ const calculatorSchema = useCalculatorSchema()
 
                   {errors.curWeight && touched.curWeight ? (
                     <ErrorMessageContainer>
-                      {errors.curWeight}
+                      {t(errors.curWeight)}
                     </ErrorMessageContainer>
                   ) : null}
                 </FieldStyledMobil>
@@ -158,7 +159,7 @@ const calculatorSchema = useCalculatorSchema()
 
                   {errors.desWeight && touched.desWeight ? (
                     <ErrorMessageContainer>
-                      {errors.desWeight}
+                      {t(errors.desWeight)}
                     </ErrorMessageContainer>
                   ) : null}
                 </FieldStyledMobil>
@@ -221,7 +222,7 @@ const calculatorSchema = useCalculatorSchema()
 
                   {errors.curWeight && touched.curWeight ? (
                     <ErrorMessageContainer>
-                      {errors.curWeight}
+                      {t(errors.curWeight)}
                     </ErrorMessageContainer>
                   ) : null}
                 </FieldStyledTab>

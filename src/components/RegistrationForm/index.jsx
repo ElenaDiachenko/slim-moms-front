@@ -22,10 +22,11 @@ import { userSelector } from 'redux/auth/auth-selectors';
 import { useTranslation } from "react-i18next";
 
 const FormError = ({ name }) => {
+    const { t } = useTranslation();
   return (
     <ErrorMessage
       name={name}
-      render={message => <MessageErr>{message}</MessageErr>}
+      render={message => <MessageErr>{t(message)}</MessageErr>}
     />
   );
 };

@@ -12,11 +12,12 @@ import { ShowPasswordButton } from 'components/Button/ShowPasswordButton';
 import { useTranslation } from "react-i18next";
 
 const FormError = ({ name }) => {
+    const { t } = useTranslation();
 
   return (
     <ErrorMessage
       name={name}
-      render={message => <ErrorText>{message}</ErrorText>}
+      render={message => <ErrorText>{t(message)}</ErrorText>}
     />
   );
 };
@@ -24,12 +25,12 @@ const FormError = ({ name }) => {
 const schema = yup.object().shape({
   email: yup
     .string()
-    .email('Please enter a valid email')
-    .required('Email is a required field'),
+    .email('validationRegisterForm.label2')
+    .required('validationDiaryForm.label4'),
   password: yup
     .string()
-    .min(3, 'Password must be at least 3 characters')
-    .required('Password is a required field'),
+    .min(3, 'validationDiaryForm.label3')
+    .required('validationDiaryForm.label4'),
 });
 
 const initialValues = {
