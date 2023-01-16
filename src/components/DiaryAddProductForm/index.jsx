@@ -103,14 +103,14 @@ const {t}= useTranslation()
             value={selectedOption}
             onChange={handleChange}
             options={options}
-            noOptionsMessage={() => {t("ProductForm.not_found")}}
+            noOptionsMessage={() => `${t('ProductForm.not_found')}`}
             inputValue={product}
             onInputChange={setProduct}
             styles={selectStyles}
             placeholder={t("ProductForm.label_1")}
           />
           {errorProduct ? (
-            <p style={{ color: 'red' }}>Field "Product" is required</p>
+            <p style={{ color: 'red' }}>{t("ProductForm.validate")}</p>
           ) : null}
         </Box>
         {isLoading ? <LoaderDots /> : null}
@@ -125,7 +125,7 @@ const {t}= useTranslation()
             placeholder={t("ProductForm.label_2")}
           />
           {errorWeight ? (
-            <p style={{ color: 'red' }}>Field "Gramms" is required</p>
+            <p style={{ color: 'red' }}>{t("ProductForm.validate")}</p>
           ) : null}
         </Box>
         {width > 767 ? (
@@ -138,7 +138,7 @@ const {t}= useTranslation()
             font="20px"
           />
         ) : (
-          <Button type="submit" text="Add" w="176px" h="44px" />
+          <Button type="submit" text={t("MobileMenu.addBtn")} w="176px" h="44px" />
         )}
       </ContainerForm>
     </div>

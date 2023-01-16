@@ -25,15 +25,17 @@
   "ProductForm": {
     "label_1": "Enter product name",
     "label_2": "Grams",
-    "not_found": "Product not found"
+    "not_found": "Product not found",
+     "not_found_for_date": "Not found products for this date",
+    "validate": "This field is required!"
   },
   "CalloriesText": {
     "title_1": "Summary for",
     "title_2": "Food not recommended:",
-    "item_1": "Left",
-    "item_2": "Consumed",
-    "item_3": "Daily rate",
-    "item_4": "n% of normal",
+    "item_1": "Left:",
+    "item_2": "Consumed:",
+    "item_3": "Daily rate:",
+    "item_4": "n% of normal:",
     "item_5": "Your diet will be displayed here",
     "count": "kcal"
   },
@@ -43,6 +45,9 @@
   },
   "ModalText": {
     "title_1": "Your recommended daily calorie intake is",
+    "title_2_1": "Your recommended daily",
+    "title_2_2": "calorie intake is",
+
     "count_small": "kcal",
     "text": "Foods you should not eat",
     "btn": "Start losing weight"
@@ -71,7 +76,10 @@
     "label8": "The weight should be more than 20!",
     "label9": "Weight must be less than 500!",
     "label10": "Desired weight should be more than 20!",
-    "label11": "Desired weight should be less than 500!"
+    "label11": "Desired weight should be less than 500!",
+    "label14": "Weight  must be an integer",
+    "label15": "Desired weight  must be an integer"
+
   },
   "validationRegisterForm": {
     "label1": "The name is not entered correctly",

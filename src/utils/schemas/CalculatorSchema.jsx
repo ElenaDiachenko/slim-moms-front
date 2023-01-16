@@ -1,37 +1,41 @@
 import * as Yup from 'yup';
+import { useTranslation } from "react-i18next";
 
+export const useCalculatorSchema = ()=>{
+  const { t } = useTranslation();
+  
 const calculatorSchema = Yup.object().shape({
   height: Yup.number()
-    .min(100, 'Very little...')
-    .typeError('Height must be a number!')
+    .min(100, `${t('validationDiaryForm.label1')}`)
+    .typeError(`${t('validationDiaryForm.label3')}`)
     .positive()
-    .integer('Put your height in a number')
-    .max(250, 'A lot...')
-    .required('Fill all the fields!'),
+    .integer(`${t('validationDiaryForm.label3')}`)
+    .max(250, `${t('validationDiaryForm.label2')}`)
+     .required(`${t('validationDiaryForm.label4')}`),
   age: Yup.number()
-    .min(18, 'Very little...')
-    .typeError('Age must be a number!')
+    .min(18, `${t('validationDiaryForm.label5')}`)
+    .typeError(`${t('validationDiaryForm.label7')}`)
     .positive()
     .integer()
-    .max(100, 'A lot...')
-    .required('Fill all the fields!'),
+    .max(100, `${t('validationDiaryForm.label6')}`)
+    .required(`${t('validationDiaryForm.label4')}`),
   curWeight: Yup.number()
-    .min(20, 'Very little...')
-    .typeError('Weight must be a number!')
+    .min(20, `${t('validationDiaryForm.label8')}`)
+    .typeError(`${t('validationDiaryForm.label14')}`)
     .positive()
     .integer()
-    .max(500, 'A lot...')
-    .required('Fill all the fields!'),
+    .max(500, `${t('validationDiaryForm.label9')}`)
+    .required(`${t('validationDiaryForm.label4')}`),
   desWeight: Yup.number()
-    .min(20, 'Very little...')
-    .typeError('Desired weight must be a number!')
+    .min(20, `${t('validationDiaryForm.label10')}`)
+    .typeError(`${t('validationDiaryForm.label15')}`)
     .positive()
     .integer()
-    .max(500, 'A lot...')
-    .required('Fill all the fields!'),
+    .max(500, `${t('validationDiaryForm.label11')}`)
+    .required(`${t('validationDiaryForm.label4')}`),
   bloodType: Yup.string()
     .oneOf(['1', '2', '3', '4'])
-    .required('Choose your blood type!'),
+    .required(`${t('validationDiaryForm.label4')}`),
 });
-
-export default calculatorSchema;
+  return calculatorSchema
+}

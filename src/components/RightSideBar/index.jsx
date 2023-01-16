@@ -14,6 +14,7 @@ import {
 import { diarySelectors } from 'redux/diary/diarySelectors';
 import { useSelector } from 'react-redux';
 import { useAuth } from '../../hooks/useAuth';
+import { useTranslation } from "react-i18next";
 
 export const RightSideBar = () => {
   const { user } = useAuth();
@@ -28,33 +29,34 @@ export const RightSideBar = () => {
 
   const leftCalories = dailyCalorie - caloricityPerDay;
   const percentOfNormal = (caloricityPerDay / dailyCalorie) * 100;
+    const { t } = useTranslation();
 
   return (
     <Box>
       <BoxList>
-        <ListTitle>Summary for {normalizedSelectedDate}</ListTitle>
+        <ListTitle>{t("CalloriesText.title_1")} {normalizedSelectedDate}</ListTitle>
         <Container>
           <ContainerItem>
-            <Title>Left</Title>
+            <Title>{t("CalloriesText.item_1")}</Title>
             <Content>
-              {caloricityPerDay > 0 ? Math.round(leftCalories) : 0} kcal
+              {caloricityPerDay > 0 ? Math.round(leftCalories) : 0} {t("CalloriesText.count")}
             </Content>{' '}
           </ContainerItem>
           <ContainerItem>
-            <Title>Consumed</Title>
+            <Title>{t("CalloriesText.item_2")}</Title>
             <Content>
-              {caloricityPerDay > 0 ? Math.round(caloricityPerDay) : 0} kcal{' '}
+              {caloricityPerDay > 0 ? Math.round(caloricityPerDay) : 0} {t("CalloriesText.count")}{' '}
             </Content>
           </ContainerItem>
           <ContainerItem>
-            <Title>Daily rate </Title>
+            <Title>{t("CalloriesText.item_3")} </Title>
             <Content>
               {' '}
-              {dailyCalorie > 0 ? Math.round(dailyCalorie) : 0} kcal{' '}
+              {dailyCalorie > 0 ? Math.round(dailyCalorie) : 0} {t("CalloriesText.count")}{' '}
             </Content>
           </ContainerItem>
           <ContainerItem>
-            <Title>% of normal</Title>
+            <Title>{t("CalloriesText.item_4")}</Title>
             <Content>
               {caloricityPerDay > 0 && dailyCalorie > 0? Math.round(percentOfNormal) : 0} %
             </Content>
@@ -62,7 +64,7 @@ export const RightSideBar = () => {
         </Container>
       </BoxList>
       <BoxList>
-        <ListTitle>Food not recommended</ListTitle>
+        <ListTitle>{t("CalloriesText.title_2")}</ListTitle>
         {notRecProducts.length ? (
           <List>
             {notRecProducts.map(product => (
@@ -70,7 +72,7 @@ export const RightSideBar = () => {
             ))}
           </List>
         ) : (
-          <PreContent> Your diet will be displayed here </PreContent>
+          <PreContent>{t("CalloriesText.item_5")}</PreContent>
         )}
       </BoxList>
     </Box>

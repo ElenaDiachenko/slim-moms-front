@@ -27,7 +27,7 @@ import Modal from 'components/Modal';
 import { useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 import { selectIsLoggedIn } from 'redux/auth/auth-selectors';
-import calculatorSchema from '../../utils/schemas/CalculatorSchema';
+import {useCalculatorSchema} from '../../utils/schemas/CalculatorSchema';
 import { userSelector } from 'redux/auth/auth-selectors';
 import { setUserData } from 'redux/auth/auth-slice';
 import { getDiet } from 'redux/products/products-operations';
@@ -58,7 +58,7 @@ export const DailyCaloriesForm = () => {
         bloodType: '1',
       };
   const { t } = useTranslation();
-
+const calculatorSchema = useCalculatorSchema()
   const dispatch = useDispatch();
 
   const mds = window.matchMedia('(min-width: 768px)');
