@@ -9,8 +9,10 @@ import { Link } from 'react-router-dom';
 import { Box } from 'components/Box';
 import 'react-toastify/dist/ReactToastify.css';
 import { ShowPasswordButton } from 'components/Button/ShowPasswordButton';
+import { useTranslation } from "react-i18next";
 
 const FormError = ({ name }) => {
+
   return (
     <ErrorMessage
       name={name}
@@ -39,6 +41,7 @@ export const FormLogin = () => {
   const [showPassword, setShow] = useState(false);
   const handleClick = () => setShow(!showPassword);
   const dispatch = useDispatch();
+    const { t } = useTranslation();
 
   const handleSubmit = ({ email, password }, { resetForm }) => {
     dispatch(logIn({ email, password }));
@@ -62,11 +65,11 @@ export const FormLogin = () => {
             gridGap="40px"
           >
             <Label htmlFor="email">
-              Email *<Input type="email" name="email"></Input>
+               {t("AuthForm.label_3")}<Input type="email" name="email"></Input>
               <FormError name="email" component="p" />
             </Label>
             <Label htmlFor="password">
-              Password *
+              {t("AuthForm.label_2")}
               <Input
                 name="password"
                 type={showPassword ? 'true' : 'password'}
@@ -84,12 +87,12 @@ export const FormLogin = () => {
             alignItems="center"
             gridGap={['20px', '32px']}
           >
-            <ButtonAuth text="Log in"></ButtonAuth>
+            <ButtonAuth text={t("header.buttonLogin")}></ButtonAuth>
             <Link to="/registration">
-              <ButtonLinkAuth text="Register"></ButtonLinkAuth>
+              <ButtonLinkAuth text={t("header.buttonReg")}></ButtonLinkAuth>
             </Link>
              <GoogleButton href={`http://localhost:5001/api/auth/google`}>
-                Google auth
+                {t("header.google")}
               </GoogleButton>
           </Box>
         </FormLogIn>

@@ -5,7 +5,9 @@
     "signup2": "Реєстрація",
     "exit": "Вихід",
     "buttonReg": "Зареєструватись",
-    "buttonLogin": "Увійти"
+    "buttonLogin": "Увійти",
+         "google": " Google вхід"
+
   },
   "dailyCalorieForm": {
     "title": "Розрахуйте свою денну норму калорій прямо зараз",
@@ -23,7 +25,9 @@
   },
   "ProductForm": {
     "label_1": "Введіть продукт",
-    "label_2": "Грами"
+    "label_2": "Грами",
+        "not_found": "Такого продукта не знайдено"
+
   },
   "CalloriesText": {
     "title_1": "Підсумок за",

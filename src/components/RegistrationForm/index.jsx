@@ -19,6 +19,7 @@ import {
 } from './RegistrationForm.styled';
 import { ShowPasswordButton } from 'components/Button/ShowPasswordButton';
 import { userSelector } from 'redux/auth/auth-selectors';
+import { useTranslation } from "react-i18next";
 
 const FormError = ({ name }) => {
   return (
@@ -41,6 +42,7 @@ export const RegistrationForm = () => {
   const [showPassword, setShow] = useState(false);
   const handleClick = () => setShow(!showPassword);
   const dispatch = useDispatch();
+    const { t } = useTranslation();
 
   const handleSubmit = async ({ name, email, password }, { resetForm }) => {
     userSavedData
@@ -57,23 +59,23 @@ export const RegistrationForm = () => {
         validationSchema={RegisterSchema}
       >
         <Wrap>
-          <Title>Register</Title>
+          <Title>{t("header.signup2")}</Title>
 
           <FormReg autoComplete="off">
             <FormList>
               <FormItem>
-                <Label htmlFor="name">Name *</Label>
+                <Label htmlFor="name">{t("AuthForm.label_1")}</Label>
                 <Input id="name" name="name" type="text" />
                 <FormError name="name" component="p" />
               </FormItem>
               <FormItem>
-                <Label htmlFor="email">Email *</Label>
+                <Label htmlFor="email">{t("AuthForm.label_3")}</Label>
                 <Input id="email" name="email" type="text" />
                 <FormError name="email" component="p" />
               </FormItem>
 
               <FormItem>
-                <Label htmlFor="password">Password *</Label>
+                <Label htmlFor="password">{t("AuthForm.label_2")}</Label>
                 <Input
                   id="password"
                   name="password"
@@ -87,12 +89,12 @@ export const RegistrationForm = () => {
               </FormItem>
             </FormList>
             <ButtonsContainer>
-              <ButtonAuth text="Register" />
+              <ButtonAuth text={t("header.buttonReg")} />
               <Link to="/login">
-                <ButtonLinkAuth text="Log in" />
+                <ButtonLinkAuth text={t("header.buttonLogin")} />
               </Link>
               <GoogleButton href={`http://localhost:5001/api/auth/google`}>
-                Google auth
+               {t("header.google")}
               </GoogleButton>
             </ButtonsContainer>
           </FormReg>

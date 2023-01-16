@@ -5,7 +5,8 @@
     "signup2": "Registrer",
     "exit": "Log out",
     "buttonReg": "Register",
-    "buttonLogin": "Login"
+    "buttonLogin": "Log In",
+     "google": " Google auth"
   },
   "dailyCalorieForm": {
     "title": "Calculate your daily calorie intake right now",
@@ -23,7 +24,8 @@
   },
   "ProductForm": {
     "label_1": "Enter product name",
-    "label_2": "Grams"
+    "label_2": "Grams",
+    "not_found": "Product not found"
   },
   "CalloriesText": {
     "title_1": "Summary for",
