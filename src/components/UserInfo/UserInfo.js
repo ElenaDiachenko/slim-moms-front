@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
+import { useTranslation } from "react-i18next";
 import { logOut } from 'redux/auth/auth-operations';
 // import { authSelectors } from 'redux/auth/auth-selectors';
 import sprite from 'images/icons.svg';
@@ -23,6 +24,8 @@ import {
 
 const UserInfoModal = () => {
   const [menuActive, setMenuActive] = useState(false);
+
+
   return (
     <>
       <MenuButton
@@ -40,14 +43,15 @@ const UserInfoModal = () => {
 };
 
 const UserInfoNav = ({ active, setActive }) => {
+    const { t } = useTranslation();
   return (
     <ModalBox className={active ? 'active' : ''}>
       <ModalContent>
         <UserNavLink to={'./diary'} onClick={() => setActive(!active)}>
-          Diary
+          {t("MobileMenu.page1")}
         </UserNavLink>
         <UserNavLink to={'./calculator'} onClick={() => setActive(!active)}>
-          Calculator
+          {t("MobileMenu.page2")}
         </UserNavLink>
       </ModalContent>
     </ModalBox>
@@ -57,6 +61,7 @@ const UserInfoNav = ({ active, setActive }) => {
 export const UserInfo = () => {
   const dispatch = useDispatch();
   const location = useLocation();
+    const { t } = useTranslation();
 
   const { user } = useAuth();
 
@@ -67,8 +72,8 @@ export const UserInfo = () => {
   return (
     <UserContainer>
       <NavLinkBox>
-        <UserNavLink to={'./diary'}>Diary</UserNavLink>
-        <UserNavLink to={'./calculator'}>Calculator</UserNavLink>
+        <UserNavLink to={'./diary'}>{t("MobileMenu.page1")}</UserNavLink>
+        <UserNavLink to={'./calculator'}>{t("MobileMenu.page2")}</UserNavLink>
       </NavLinkBox>
 
       <UserNameContainer>
@@ -81,7 +86,7 @@ export const UserInfo = () => {
         <NameBox>
           <UserName>{user.name}</UserName>
           <ExitBtn type="button" onClick={isLogout}>
-            Exit
+            {t("header.exit")}
           </ExitBtn>
         </NameBox>
       </UserNameContainer>

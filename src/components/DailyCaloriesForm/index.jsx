@@ -1,5 +1,6 @@
 import { Button } from 'components/Button';
 import { Formik } from 'formik';
+import { useTranslation } from "react-i18next";
 
 import {
   DailyCaloriesContainer,
@@ -56,6 +57,7 @@ export const DailyCaloriesForm = () => {
         desWeight: '',
         bloodType: '1',
       };
+  const { t } = useTranslation();
 
   const dispatch = useDispatch();
 
@@ -94,7 +96,7 @@ export const DailyCaloriesForm = () => {
       <DailyCaloriesContainer>
         <DailyCaloriesFormContainer>
           <DailyCaloriesFormTitle>
-            Calculate your daily calorie intake right now
+            {t("dailyCalorieForm.title")}
           </DailyCaloriesFormTitle>
           <Formik
             initialValues={initialValues}
@@ -105,7 +107,7 @@ export const DailyCaloriesForm = () => {
               <FormStyled>
                 <InputContainer>
                   <FieldStyled name="height" type="number" autoComplete="off" />
-                  <InputLabel htmlFor="height">Height *</InputLabel>
+                  <InputLabel htmlFor="height">{t("dailyCalorieForm.label_1")}</InputLabel>
                   {errors.height && touched.height ? (
                     <ErrorMessageContainer>
                       {errors.height}
@@ -118,7 +120,7 @@ export const DailyCaloriesForm = () => {
                     type="number"
                     autoComplete="off"
                   />
-                  <InputLabel>Desired weight *</InputLabel>
+                  <InputLabel>{t("dailyCalorieForm.label_4")}</InputLabel>
                   {errors.desWeight && touched.desWeight ? (
                     <ErrorMessageContainer>
                       {errors.desWeight}
@@ -127,7 +129,7 @@ export const DailyCaloriesForm = () => {
                 </FieldStyledTab>
                 <InputContainer>
                   <FieldStyled name="age" type="number" autoComplete="off" />
-                  <InputLabel>Age *</InputLabel>
+                  <InputLabel>{t("dailyCalorieForm.label_2")}</InputLabel>
                   {errors.age && touched.age ? (
                     <ErrorMessageContainer>{errors.age}</ErrorMessageContainer>
                   ) : null}
@@ -138,7 +140,7 @@ export const DailyCaloriesForm = () => {
                     type="number"
                     autoComplete="off"
                   />
-                  <InputLabel>Current weight *</InputLabel>
+                  <InputLabel>{t("dailyCalorieForm.label_3")}</InputLabel>
 
                   {errors.curWeight && touched.curWeight ? (
                     <ErrorMessageContainer>
@@ -152,7 +154,7 @@ export const DailyCaloriesForm = () => {
                     type="number"
                     autoComplete="off"
                   />
-                  <InputLabel>Desired weight *</InputLabel>
+                  <InputLabel>{t("dailyCalorieForm.label_4")}</InputLabel>
 
                   {errors.desWeight && touched.desWeight ? (
                     <ErrorMessageContainer>
@@ -165,7 +167,7 @@ export const DailyCaloriesForm = () => {
                   name="bloodType"
                   label="bloodType"
                 >
-                  <Label>Blood type *</Label>
+                  <Label>{t("dailyCalorieForm.label_5")}</Label>
                   <RadioGrupLabel>
                     <Radiolabel htmlFor="bloodType">
                       <RadioStyled
@@ -215,7 +217,7 @@ export const DailyCaloriesForm = () => {
                     type="number"
                     autoComplete="off"
                   />
-                  <InputLabel>Current weight *</InputLabel>
+                  <InputLabel>{t("dailyCalorieForm.label_3")}</InputLabel>
 
                   {errors.curWeight && touched.curWeight ? (
                     <ErrorMessageContainer>
@@ -225,7 +227,7 @@ export const DailyCaloriesForm = () => {
                 </FieldStyledTab>
 
                 <ButtonCont>
-                  <Button type="submit" text="Start losing weight" />
+                  <Button type="submit" text={t("dailyCalorieForm.btn_name")} />
                 </ButtonCont>
               </FormStyled>
             )}

@@ -1,5 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
-import { lazy, useEffect } from 'react';
+import { lazy, useEffect  } from 'react';
 import { useDispatch } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
 import { SharedLayout } from './components/SharedLayout';
