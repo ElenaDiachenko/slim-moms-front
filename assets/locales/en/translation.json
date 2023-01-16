@@ -1,0 +1,93 @@
+{
+  "header": {
+    "signin": "Sign in",
+    "signup": "Registration",
+    "signup2": "Registrer",
+    "exit": "Log out",
+    "buttonReg": "Register",
+    "buttonLogin": "Log In",
+     "google": " Google auth"
+  },
+  "dailyCalorieForm": {
+    "title": "Calculate your daily calorie intake right now",
+    "label_1": "Height, cm *",
+    "label_2": "Age, years *",
+    "label_3": "Current weight, kg *",
+    "label_4": "Desired weight, kg *",
+    "label_5": "Blood type *",
+    "btn_name": "Start losing weight"
+  },
+  "AuthForm": {
+    "label_1": "Name *",
+    "label_2": "Password *",
+    "label_3": "Email *"
+  },
+  "ProductForm": {
+    "label_1": "Enter product name",
+    "label_2": "Grams",
+    "not_found": "Product not selected",
+     "not_found_for_date": "Not found products for this date",
+    "validate": "This field is required!"
+  },
+  "CalloriesText": {
+    "title_1": "Summary for",
+    "title_2": "Food not recommended:",
+    "item_1": "Left:",
+    "item_2": "Consumed:",
+    "item_3": "Daily rate:",
+    "item_4": "n% of normal:",
+    "item_5": "Your diet will be displayed here",
+    "count": "kcal"
+  },
+  "EatenProductsListItem": {
+    "item_1": "g",
+    "item_2": "kcal"
+  },
+  "ModalText": {
+    "title_1": "Your recommended daily calorie intake is",
+    "title_2_1": "Your recommended daily",
+    "title_2_2": "calorie intake is",
+
+    "count_small": "kcal",
+    "text": "Foods you should not eat",
+    "btn": "Start losing weight"
+  },
+  "MobileMenu": {
+    "page1": "Diary",
+    "page2": "Calculator",
+    "addBtn": "Add"
+  },
+  "notify": {
+    "alert1": "Incorrect email or password entered",
+    "alert2": "Password should be from 8 to 20 characters",
+    "alert3": "Email should be up to 40 characters, example format: Admin@up.info",
+    "alert4": "The name must be at least 3 to 20 characters",
+    "alert5": "User with this email is already registered!",
+    "alert6": "Wrong password or email",
+    "alert7": "Product added successfully",
+     "alert8": "Product removed successfully"
+
+  },
+  "validationDiaryForm": {
+    "label1": "Height should be more than 100 cm!",
+    "label2": "Height must be less than 250 cm!",
+    "label3": "Height must be an integer",
+    "label4": "This field is required!",
+    "label5": "Age must be more than 18!",
+    "label6": "Age must be less than 100!",
+    "label7": "Height must be an integer",
+    "label8": "The weight should be more than 20!",
+    "label9": "Weight must be less than 500!",
+    "label10": "Desired weight should be more than 20!",
+    "label11": "Desired weight should be less than 500!",
+    "label14": "Weight  must be an integer",
+    "label15": "Desired weight  must be an integer"
+
+  },
+  "validationRegisterForm": {
+    "label1": "The name is not entered correctly",
+    "label2": "The email is not entered correctly",
+    "label3": "Password should be longer than 8 characters",
+    "label4": "Password should not contain spaces"
+  }
+}
