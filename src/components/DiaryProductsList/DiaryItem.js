@@ -3,6 +3,7 @@ import { removeProduct } from 'redux/diary/diaryOperations';
 import { ProductTitle, ProductProp, ExitBtn, Unit } from './DiaryItem.styled';
 import sprite from 'images/icons.svg';
 import { useAdaptivString } from 'hooks/useAdaptivString';
+import { useTranslation } from "react-i18next";
 
 export const DiaryItem = ({ product }) => {
   const dispatch = useDispatch();
@@ -10,17 +11,18 @@ export const DiaryItem = ({ product }) => {
   const handleDelete = () => {
     dispatch(removeProduct(product._id));
   };
+    const { t } = useTranslation();
 
   return (
     <>
       <ProductTitle>{title}</ProductTitle>
       <ProductProp>
         {product?.weight}
-        <span> g</span>
+        <span> {t("EatenProductsListItem.item_1")}</span>
       </ProductProp>
       <ProductProp>
         {Math.round(product?.calories)}
-        <Unit> kcal</Unit>
+        <Unit> {t("EatenProductsListItem.item_2")}</Unit>
       </ProductProp>
 
       <ExitBtn type="button" onClick={handleDelete}>

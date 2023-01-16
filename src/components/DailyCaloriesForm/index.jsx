@@ -1,5 +1,6 @@
 import { Button } from 'components/Button';
 import { Formik } from 'formik';
+import { useTranslation } from "react-i18next";
 
 import {
   DailyCaloriesContainer,
@@ -26,7 +27,7 @@ import Modal from 'components/Modal';
 import { useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 import { selectIsLoggedIn } from 'redux/auth/auth-selectors';
-import calculatorSchema from '../../utils/schemas/CalculatorSchema';
+import calculatorSchema from 'utils/schemas/CalculatorSchema'
 import { userSelector } from 'redux/auth/auth-selectors';
 import { setUserData } from 'redux/auth/auth-slice';
 import { getDiet } from 'redux/products/products-operations';
@@ -56,7 +57,7 @@ export const DailyCaloriesForm = () => {
         desWeight: '',
         bloodType: '1',
       };
-
+  const { t } = useTranslation();
   const dispatch = useDispatch();
 
   const mds = window.matchMedia('(min-width: 768px)');
@@ -94,7 +95,7 @@ export const DailyCaloriesForm = () => {
       <DailyCaloriesContainer>
         <DailyCaloriesFormContainer>
           <DailyCaloriesFormTitle>
-            Calculate your daily calorie intake right now
+            {t("dailyCalorieForm.title")}
           </DailyCaloriesFormTitle>
           <Formik
             initialValues={initialValues}
@@ -105,10 +106,10 @@ export const DailyCaloriesForm = () => {
               <FormStyled>
                 <InputContainer>
                   <FieldStyled name="height" type="number" autoComplete="off" />
-                  <InputLabel htmlFor="height">Height *</InputLabel>
+                  <InputLabel htmlFor="height">{t("dailyCalorieForm.label_1")}</InputLabel>
                   {errors.height && touched.height ? (
                     <ErrorMessageContainer>
-                      {errors.height}
+                      {t(errors.height)}
                     </ErrorMessageContainer>
                   ) : null}
                 </InputContainer>
@@ -118,18 +119,20 @@ export const DailyCaloriesForm = () => {
                     type="number"
                     autoComplete="off"
                   />
-                  <InputLabel>Desired weight *</InputLabel>
+                  <InputLabel>{t("dailyCalorieForm.label_4")}</InputLabel>
                   {errors.desWeight && touched.desWeight ? (
                     <ErrorMessageContainer>
-                      {errors.desWeight}
+                      {t(errors.desWeight)}
                     </ErrorMessageContainer>
                   ) : null}
                 </FieldStyledTab>
                 <InputContainer>
                   <FieldStyled name="age" type="number" autoComplete="off" />
-                  <InputLabel>Age *</InputLabel>
+                  <InputLabel>{t("dailyCalorieForm.label_2")}</InputLabel>
                   {errors.age && touched.age ? (
-                    <ErrorMessageContainer>{errors.age}</ErrorMessageContainer>
+                    <ErrorMessageContainer>
+                      {t(errors.age)}
+                    </ErrorMessageContainer>
                   ) : null}
                 </InputContainer>
                 <FieldStyledMobil>
@@ -138,11 +141,11 @@ export const DailyCaloriesForm = () => {
                     type="number"
                     autoComplete="off"
                   />
-                  <InputLabel>Current weight *</InputLabel>
+                  <InputLabel>{t("dailyCalorieForm.label_3")}</InputLabel>
 
                   {errors.curWeight && touched.curWeight ? (
                     <ErrorMessageContainer>
-                      {errors.curWeight}
+                      {t(errors.curWeight)}
                     </ErrorMessageContainer>
                   ) : null}
                 </FieldStyledMobil>
@@ -152,11 +155,11 @@ export const DailyCaloriesForm = () => {
                     type="number"
                     autoComplete="off"
                   />
-                  <InputLabel>Desired weight *</InputLabel>
+                  <InputLabel>{t("dailyCalorieForm.label_4")}</InputLabel>
 
                   {errors.desWeight && touched.desWeight ? (
                     <ErrorMessageContainer>
-                      {errors.desWeight}
+                      {t(errors.desWeight)}
                     </ErrorMessageContainer>
                   ) : null}
                 </FieldStyledMobil>
@@ -165,7 +168,7 @@ export const DailyCaloriesForm = () => {
                   name="bloodType"
                   label="bloodType"
                 >
-                  <Label>Blood type *</Label>
+                  <Label>{t("dailyCalorieForm.label_5")}</Label>
                   <RadioGrupLabel>
                     <Radiolabel htmlFor="bloodType">
                       <RadioStyled
@@ -215,17 +218,17 @@ export const DailyCaloriesForm = () => {
                     type="number"
                     autoComplete="off"
                   />
-                  <InputLabel>Current weight *</InputLabel>
+                  <InputLabel>{t("dailyCalorieForm.label_3")}</InputLabel>
 
                   {errors.curWeight && touched.curWeight ? (
                     <ErrorMessageContainer>
-                      {errors.curWeight}
+                      {t(errors.curWeight)}
                     </ErrorMessageContainer>
                   ) : null}
                 </FieldStyledTab>
 
                 <ButtonCont>
-                  <Button type="submit" text="Start losing weight" />
+                  <Button type="submit" text={t("dailyCalorieForm.btn_name")} />
                 </ButtonCont>
               </FormStyled>
             )}

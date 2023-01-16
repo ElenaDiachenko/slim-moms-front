@@ -3,10 +3,12 @@ import { useSelector } from 'react-redux';
 import { diarySelectors } from 'redux/diary/diarySelectors';
 import Loader from 'components/Loader/Loader';
 import { ListItem, List, ProductListBox } from './DiaryProductsList.styled';
+import { useTranslation } from "react-i18next";
 
 export const DiaryProductsList = () => {
   const productsByDate = useSelector(diarySelectors.selectProductByDate);
   const isLoading = useSelector(diarySelectors.selectIsLoading);
+    const { t } = useTranslation();
 
   return (
     <>
@@ -20,7 +22,7 @@ export const DiaryProductsList = () => {
               </ListItem>
             ))
           ) : (
-            <p>No products found for this date</p>
+            <p>{t("ProductForm.not_found_for_date")}</p>
           )}
         </List>
       </ProductListBox>

@@ -13,6 +13,7 @@ import { diarySelectors } from 'redux/diary/diarySelectors';
 import { getProductByQuery } from 'redux/products/products-operations';
 import { useDebounce } from 'hooks/useDebounce';
 import { productSelectors } from 'redux/products/productSelectors';
+import { useTranslation } from "react-i18next";
 
 export const DiaryAddProductForm = () => {
   const [product, setProduct] = useState('');
@@ -29,7 +30,7 @@ export const DiaryAddProductForm = () => {
   const isLoading = useSelector(
     productSelectors.selectIsLoadingProductsByQuery
   );
-
+const {t}= useTranslation()
   const handleChange = inputValue => {
     setSelectedOption(inputValue);
   };
@@ -102,14 +103,14 @@ export const DiaryAddProductForm = () => {
             value={selectedOption}
             onChange={handleChange}
             options={options}
-            noOptionsMessage={() => 'Product not found'}
+            noOptionsMessage={() => `${t('ProductForm.not_found')}`}
             inputValue={product}
             onInputChange={setProduct}
             styles={selectStyles}
-            placeholder="Enter product name"
+            placeholder={t("ProductForm.label_1")}
           />
           {errorProduct ? (
-            <p style={{ color: 'red' }}>Field "Product" is required</p>
+            <p style={{ color: 'red' }}>{t("ProductForm.validate")}</p>
           ) : null}
         </Box>
         {isLoading ? <LoaderDots /> : null}
@@ -121,10 +122,10 @@ export const DiaryAddProductForm = () => {
             autoComplete="off"
             onChange={handleWeight}
             type="input"
-            placeholder="Gramms"
+            placeholder={t("ProductForm.label_2")}
           />
           {errorWeight ? (
-            <p style={{ color: 'red' }}>Field "Gramms" is required</p>
+            <p style={{ color: 'red' }}>{t("ProductForm.validate")}</p>
           ) : null}
         </Box>
         {width > 767 ? (
@@ -137,7 +138,7 @@ export const DiaryAddProductForm = () => {
             font="20px"
           />
         ) : (
-          <Button type="submit" text="Add" w="176px" h="44px" />
+          <Button type="submit" text={t("MobileMenu.addBtn")} w="176px" h="44px" />
         )}
       </ContainerForm>
     </div>
