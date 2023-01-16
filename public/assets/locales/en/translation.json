@@ -63,7 +63,10 @@
     "alert3": "Email should be up to 40 characters, example format: Admin@up.info",
     "alert4": "The name must be at least 3 to 20 characters",
     "alert5": "User with this email is already registered!",
-    "alert6": "Wrong password or email"
+    "alert6": "Wrong password or email",
+    "alert7": "Product added successfully",
+     "alert8": "Product removed successfully"
+
   },
   "validationDiaryForm": {
     "label1": "Height should be more than 100 cm!",
