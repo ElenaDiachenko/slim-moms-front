@@ -37,7 +37,8 @@ export const store = configureStore({
        {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER, 'diary/addProduct/fulfilled', 'diary/removeProduct/fulfilled'],
       },
-    })
+    }),
+  devTools:false
 });
 
 export const persistor = persistStore(store);
