@@ -14,9 +14,6 @@ i18n
     react: {
       useSuspense: true,
     },
-    // the translations
-    // (tip move them in a JSON file and import them,
-    // or even better, manage them via a UI: https://react.i18next.com/guides/multiple-translation-files#manage-your-translations-with-a-management-gui)
     supported: ["en", "uk"],
     fallbackLng: "uk",
     detection: {

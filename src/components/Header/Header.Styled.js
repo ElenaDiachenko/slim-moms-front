@@ -12,6 +12,12 @@ export const HeaderStyled = styled('header')`
     align-items: baseline;
   }
 `;
+export const SelectWrapper = styled('div')`
+ position:fixed;
+ top:100px;
+ right:0
+  
+`;
 
 export const HeaderStyledContent = styled.div`
   display: flex;
