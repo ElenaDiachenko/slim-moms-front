@@ -10,7 +10,6 @@ i18n
   .use(LanguageDetector)
   .use(initReactI18next) // passes i18n down to react-i18next
   .init({
-    // lng: 'en',
     react: {
       useSuspense: true,
     },
@@ -32,30 +31,5 @@ i18n
     },
   });
 
-// i18n.use(Backend)
-// 	.use(LanguageDetector)
-// 	.use(initReactI18next)
-// 	.init({
-// 		backend: {
-// 			// translation file path
-// 			loadPath: "../public/assets/locales/{{lng}}/translation.json",
-//         },
-//          supportedLngs: ['en','uk'],
-// 		fallbackLng: "uk",
-// 		// disabled in production
-// 		debug: false,
-// 		// can have multiple namespaces, in case you want to divide a huge
-// 		// translation into smaller pieces and load them on demand
-// 		// ns: ["common", "home", "profile"],
-// detection: {
-//      order: [ 'localStorage', 'htmlTag', 'path', 'subdomain'],
-//      caches: ['localStorage']
-//    },
-// 		interpolation: {
-// 			espaceValue: false,
-// 			// formatSeparator: ",",
-// 		},
-	
-// 	});
 
 export default i18n;

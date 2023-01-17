@@ -107,7 +107,6 @@ export const App = () => {
               path="/registration"
               element={
                 <PublicRoute
-                  //  redirectTo={userSavedData ? '/diary' : '/calculator'}
                   redirectTo="/diary"
                   restricted
                 >
