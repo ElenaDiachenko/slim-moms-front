@@ -10,9 +10,9 @@ import "./i18n.js";
 import { ThemeProvider } from '@emotion/react';
 import { theme } from './components/Theme';
 import Loader from 'components/Loader/Loader';
-import { disableReactDevTools } from '@fvilers/disable-react-devtools';
+// import { disableReactDevTools } from '@fvilers/disable-react-devtools';
 
-if (process.env.NODE_ENV === 'production') disableReactDevTools()
+// if (process.env.NODE_ENV === 'production') disableReactDevTools()
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
