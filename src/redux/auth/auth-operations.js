@@ -17,10 +17,13 @@ export const register = createAsyncThunk(
 );
 
 export const logOut = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
+  let state = thunkAPI.getState();
+  console.log(state);
   try {
     await $api.get('auth/logout');
     localStorage.removeItem('token_moms');
     localStorage.removeItem('persist:auth');
+
   } catch (error) {
     return thunkAPI.rejectWithValue(error.message);
   }
