@@ -6,6 +6,7 @@ import {
   isRejected,
 } from '@reduxjs/toolkit';
 import moment from 'moment';
+import 'moment/locale/en-au';
 import {normalizeDate} from 'components/DiaryDateСalendar'
 import { getByDate, addProduct, removeProduct } from './diaryOperations';
 import { anyCases } from '../utils';
