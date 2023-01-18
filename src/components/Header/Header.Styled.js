@@ -14,7 +14,7 @@ export const HeaderStyled = styled('header')`
 `;
 export const SelectWrapper = styled('div')`
  position:fixed;
- top:100px;
+ top:140px;
  right:0
   
 `;

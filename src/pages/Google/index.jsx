@@ -10,10 +10,12 @@ const Google = () => {
   const params = Object.fromEntries([...searchParams]);
   const userSavedData = useSelector(userSelector.selectUserSavedData);
   const dispatch = useDispatch();
+
   useEffect(() => {
     if (!params) return;
     (async () => {
       await dispatch(setGoogleData(params));
+      localStorage.setItem('token_moms', params.token)
       await dispatch(checkAuth());
       if (userSavedData) {
         await dispatch(updateUser(userSavedData));
