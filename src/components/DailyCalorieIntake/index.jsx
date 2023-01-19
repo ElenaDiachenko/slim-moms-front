@@ -48,7 +48,7 @@ const{t}=useTranslation()
         <ListTitle>{t("ModalText.text")}</ListTitle>
         <List as="ol">
           {notRecProducts.map(product => (
-            <Item key={product._id}>{product.title.ua}</Item>
+            <Item key={product?._id}>{product?.title?.ua}</Item>
           ))}
         </List>
       </BoxList>
