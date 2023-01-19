@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-export const API_URL = `http://localhost:5001/api/`;
+// export const API_URL = `http://localhost:5001/api/`;
+export const API_URL = `https://slimmoms-api.onrender.com/api/`;
 
 const $api = axios.create({
   withCredentials: true,
