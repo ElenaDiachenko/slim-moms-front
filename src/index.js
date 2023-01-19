@@ -17,7 +17,7 @@ import Loader from 'components/Loader/Loader';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <Suspense fallback={<Loader/>} >
-  <React.StrictMode>
+  {/* <React.StrictMode> */}
     <ThemeProvider theme={theme}>
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
@@ -27,6 +27,6 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         </PersistGate>
       </Provider>
     </ThemeProvider>
-    </React.StrictMode>
+    {/* </React.StrictMode> */}
     </Suspense>
 );

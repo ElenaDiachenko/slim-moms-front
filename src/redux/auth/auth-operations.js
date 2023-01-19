@@ -6,12 +6,13 @@ import axios from 'axios';
 export const register = createAsyncThunk(
   'auth/register',
   async (credentials, thunkAPI) => {
+  
     try {
       const { data } = await $api.post('auth/register', credentials);
       localStorage.setItem('token_moms', data.token);
       return data;
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
+      return thunkAPI.rejectWithValue(error.response.message);
     }
   }
 );
@@ -23,9 +24,9 @@ export const logOut = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
     await $api.get('auth/logout');
     localStorage.removeItem('token_moms');
     localStorage.removeItem('persist:auth');
-
+   
   } catch (error) {
-    return thunkAPI.rejectWithValue(error.message);
+    return thunkAPI.rejectWithValue(error.response.message);
   }
 });
 
@@ -37,7 +38,7 @@ export const logIn = createAsyncThunk(
       localStorage.setItem('token_moms', data.token);
       return data;
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
+      return thunkAPI.rejectWithValue(error.response.message);
     }
   }
 );
@@ -50,7 +51,7 @@ export const updateUser = createAsyncThunk(
 
       return data;
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
+      return thunkAPI.rejectWithValue(error.response.message);
     }
   }
 );
@@ -65,7 +66,7 @@ export const checkAuth = createAsyncThunk(
       localStorage.setItem('token_moms', data.token);
       return data;
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
+      return thunkAPI.rejectWithValue(error.response.message);
     }
   }
 );
