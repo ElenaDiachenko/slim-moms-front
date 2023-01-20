@@ -10,14 +10,14 @@ import "./i18n.js";
 import { ThemeProvider } from '@emotion/react';
 import { theme } from './components/Theme';
 import Loader from 'components/Loader/Loader';
-// import { disableReactDevTools } from '@fvilers/disable-react-devtools';
+import { disableReactDevTools } from '@fvilers/disable-react-devtools';
 
-// if (process.env.NODE_ENV === 'production') disableReactDevTools()
+if (process.env.NODE_ENV === 'production') disableReactDevTools()
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <Suspense fallback={<Loader/>} >
-  {/* <React.StrictMode> */}
+  <React.StrictMode>
     <ThemeProvider theme={theme}>
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
@@ -27,6 +27,6 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         </PersistGate>
       </Provider>
     </ThemeProvider>
-    {/* </React.StrictMode> */}
+    </React.StrictMode>
     </Suspense>
 );

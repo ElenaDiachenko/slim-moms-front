@@ -21,7 +21,7 @@ import { diaryReducer } from './diary/diarySlice';
 const authPersistConfig = {
   key: 'auth',
   storage,
-  whitelist: ['token'],
+  whitelist: ['token','userData'],
 };
 
 export const store = configureStore({
@@ -38,7 +38,7 @@ export const store = configureStore({
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER, 'diary/addProduct/fulfilled', 'diary/removeProduct/fulfilled'],
       },
     }),
-  devTools:true
+  devTools:false
 });
 
 export const persistor = persistStore(store);
