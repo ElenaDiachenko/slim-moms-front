@@ -92,7 +92,6 @@ export const FormLogin = () => {
             <Link to="/registration">
               <ButtonLinkAuth text={t("header.buttonReg")}></ButtonLinkAuth>
             </Link>
-             {/* <GoogleButton href={`http://localhost:5001/api/auth/google`}> */}
               <GoogleButton href={`https://slimmoms-api.onrender.com/api/auth/google`}>
                 {t("header.google")}
               </GoogleButton>
