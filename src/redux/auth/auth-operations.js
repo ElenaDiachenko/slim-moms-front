@@ -18,8 +18,6 @@ export const register = createAsyncThunk(
 );
 
 export const logOut = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
-  let state = thunkAPI.getState();
-  console.log(state);
   try {
     await $api.get('auth/logout');
     localStorage.removeItem('token_moms');

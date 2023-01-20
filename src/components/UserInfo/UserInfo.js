@@ -3,7 +3,6 @@ import { useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { useTranslation } from "react-i18next";
 import { logOut } from 'redux/auth/auth-operations';
-// import { authSelectors } from 'redux/auth/auth-selectors';
 import sprite from 'images/icons.svg';
 import { useAuth } from 'hooks/useAuth';
 import {

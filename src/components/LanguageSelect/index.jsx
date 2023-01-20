@@ -36,8 +36,7 @@ export const LanguageSelect = () => {
             onChange={handleLanguageChange}
             options={options}
             defaultValue = {options.find(({value})=>value === selectedLng)}
-                        styles={selectStyles}
-
+            styles={selectStyles}
           />
   )
 }
